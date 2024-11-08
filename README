@@ -40,9 +40,9 @@ automatically.
 If you need finer grained control of your random numbers check out one
 of these alternatives:
 
-* [Math::Random::MT](https://metacpan.org/pod/Math::Random::MT)
-* [Math::Random::ISAAC](https://metacpan.org/pod/Math::Random::ISAAC)
 * [Math::Random::PCG32](https://metacpan.org/pod/Math::Random::PCG32)
+* [Math::Random::ISAAC](https://metacpan.org/pod/Math::Random::ISAAC)
+* [Math::Random::MT](https://metacpan.org/pod/Math::Random::MT)
 * [Math::Random::Secure](https://metacpan.org/pod/Math::Random::Secure)
 
 ## Author
