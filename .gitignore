@@ -1,0 +1,8 @@
+*.gz
+Makefile.old
+Makefile
+.build/
+_build/
+cover_db/
+blib/
+inc/
