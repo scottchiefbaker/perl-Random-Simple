@@ -21,14 +21,14 @@ print "Random number between $min and $max = $num\n\n";
 
 for (1 .. 9) {
 	my $x = Random::Simple::rand32();
-	k("32 #$_: $x");
+	print "32 #$_: $x\n";
 }
 
 print "\n";
 
 for (1 .. 9) {
 	my $x = Random::Simple::rand64();
-	k("64 #$_: $x");
+	print "64 #$_: $x\n";
 }
 
 ###############################################################################
