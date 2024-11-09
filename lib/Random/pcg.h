@@ -25,14 +25,14 @@ static uint32_t pcg32_random_r(pcg32_random_t* rng) {
 
 pcg32_random_t prng;
 
-void __seed(uint64_t seed1, uint64_t seed2) {
+static void _seed(uint64_t seed1, uint64_t seed2) {
 	prng.state = seed1;
 	prng.inc   = seed2;
 
 	//printf("Seed: %lu / %lu\n", seed1, seed2);
 }
 
-uint64_t __rand64() {
+static uint64_t _rand64() {
 	uint64_t high = pcg32_random_r(&prng);
 	uint32_t low  = pcg32_random_r(&prng);
 
@@ -43,7 +43,7 @@ uint64_t __rand64() {
 	return ret;
 }
 
-uint32_t __rand32() {
+static uint32_t _rand32() {
 	uint32_t ret = pcg32_random_r(&prng);
 
 	return ret;

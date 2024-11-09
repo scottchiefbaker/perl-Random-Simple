@@ -31,7 +31,7 @@ sub warmup {
 	my $iter = $_[0];
 
 	for (my $i = 0; $i < $iter; $i++) {
-		__rand64();
+		_rand64();
 	}
 }
 
@@ -43,7 +43,7 @@ sub seed {
 		print "SEEDING MANUALLY\n";
 	}
 
-	__seed($seed1, $seed2);
+	_seed($seed1, $seed2);
 
 	$has_been_seeded = 1;
 }
@@ -73,7 +73,7 @@ sub seed_with_random {
 
 	#print("XXX: $seed1, $seed2\n");
 
-	__seed($seed1, $seed2);
+	_seed($seed1, $seed2);
 
 	$has_been_seeded = 1;
 
@@ -89,7 +89,7 @@ sub random_bytes {
 
 	my $ret = "";
 	for (my $i = 0; $i < $octets_needed; $i++) {
-		my $num = __rand64();
+		my $num = _rand64();
 
 		$ret .= pack("Q", $num);
 	}
@@ -108,7 +108,7 @@ sub random_int {
 
 	# FIXME: This is modulus and biased... fix later
 	my $range  = $max - $min + 1; # +1 makes it inclusive of $min AND $max
-	my $num    = __rand64();
+	my $num    = _rand64();
 	my $ret    = $num % $range;
 	# Add back the offset
 	$ret      += $min;

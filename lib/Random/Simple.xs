@@ -11,8 +11,8 @@
 //#include "xorshiro.h"
 //#include "xoroshiro128starstar.h"
 //
-// Other PRGNs just need three functions __seed(S1,S2), __rand32(),
-// and __rand64()
+// Other PRGNs just need three functions _seed(S1,S2), _rand32(),
+// and _rand64()
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -26,10 +26,10 @@ PROTOTYPES: ENABLE
  # directives
 
 U32
-__rand32()
+_rand32()
 
 UV
-__rand64()
+_rand64()
 
 void
-__seed(UV seed1, UV seed2)
+_seed(UV seed1, UV seed2)
