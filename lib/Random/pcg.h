@@ -4,11 +4,11 @@
 // additional c code goes here
 typedef struct { uint64_t state;  uint64_t inc; } pcg32_random_t;
 
-pcg32_random_t xxx;
+pcg32_random_t prng;
 
 void pcg32_seed(uint64_t seed1, uint64_t seed2) {
-	xxx.state = seed1;
-	xxx.inc   = seed2;
+	prng.state = seed1;
+	prng.inc   = seed2;
 
 	//printf("Seed: %lu / %lu\n", seed1, seed2);
 }
@@ -24,8 +24,8 @@ uint32_t pcg32_random_r(pcg32_random_t* rng) {
 }
 
 uint64_t rand64() {
-	uint64_t high = pcg32_random_r(&xxx);
-	uint32_t low  = pcg32_random_r(&xxx);
+	uint64_t high = pcg32_random_r(&prng);
+	uint32_t low  = pcg32_random_r(&prng);
 
 	uint64_t ret = (high << 32) | low;
 
@@ -35,7 +35,7 @@ uint64_t rand64() {
 }
 
 uint32_t rand32() {
-	uint32_t ret = pcg32_random_r(&xxx);
+	uint32_t ret = pcg32_random_r(&prng);
 
 	return ret;
 }
