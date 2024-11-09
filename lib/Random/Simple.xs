@@ -7,8 +7,9 @@
 
 #include "pcg.h"
 
-// Alernate PRNG available in xorshiro.h
+// Alernate PRNGs available
 //#include "xorshiro.h"
+//#include "xoroshiro128starstar.h"
 //
 // Other PRGNs just need three functions __seed(S1,S2), __rand32(),
 // and __rand64()
