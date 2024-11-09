@@ -19,7 +19,7 @@ uint64_t __rand64(void) {
 }
 
 uint32_t __rand32(void) {
-	const uint32_t ret = __rand64();
+	const uint32_t ret = __rand64() >> 32;
 
 	return ret;
 }
