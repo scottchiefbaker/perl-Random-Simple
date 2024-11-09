@@ -104,6 +104,8 @@ sub random_int {
 
 	if (!$has_been_seeded) { seed_with_random(); }
 
+	if ($max < $min) { die("Max can't be less than min"); }
+
 	# FIXME: This is modulus and biased... fix later
 	my $range  = $max - $min + 1; # +1 makes it inclusive of $min AND $max
 	my $num    = rand64();
