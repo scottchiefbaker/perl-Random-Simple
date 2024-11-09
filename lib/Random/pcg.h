@@ -4,16 +4,11 @@
 // additional c code goes here
 typedef struct { uint64_t state;  uint64_t inc; } pcg32_random_t;
 
-pcg32_random_t prng;
+///////////////////////////////////////////////////////////////////////////
+// Private methods
+///////////////////////////////////////////////////////////////////////////
 
-void __seed(uint64_t seed1, uint64_t seed2) {
-	prng.state = seed1;
-	prng.inc   = seed2;
-
-	//printf("Seed: %lu / %lu\n", seed1, seed2);
-}
-
-uint32_t pcg32_random_r(pcg32_random_t* rng) {
+static uint32_t pcg32_random_r(pcg32_random_t* rng) {
     uint64_t oldstate = rng->state;
     // Advance internal state
     rng->state = oldstate * 6364136223846793005ULL + (rng->inc|1);
@@ -21,6 +16,20 @@ uint32_t pcg32_random_r(pcg32_random_t* rng) {
     uint32_t xorshifted = ((oldstate >> 18u) ^ oldstate) >> 27u;
     uint32_t rot = oldstate >> 59u;
     return (xorshifted >> rot) | (xorshifted << ((-rot) & 31));
+}
+
+
+///////////////////////////////////////////////////////////////////////////
+// Public methods
+///////////////////////////////////////////////////////////////////////////
+
+pcg32_random_t prng;
+
+void __seed(uint64_t seed1, uint64_t seed2) {
+	prng.state = seed1;
+	prng.inc   = seed2;
+
+	//printf("Seed: %lu / %lu\n", seed1, seed2);
 }
 
 uint64_t __rand64() {
@@ -39,4 +48,3 @@ uint32_t __rand32() {
 
 	return ret;
 }
-
