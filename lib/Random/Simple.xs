@@ -19,10 +19,10 @@ PROTOTYPES: ENABLE
  # directives
 
 U32
-rand32()
+__rand32()
 
 UV
-rand64()
+__rand64()
 
 void
-pcg32_seed(UV seed1, UV seed2)
+__seed(UV seed1, UV seed2)

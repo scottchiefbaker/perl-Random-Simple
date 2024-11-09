@@ -6,7 +6,7 @@ typedef struct { uint64_t state;  uint64_t inc; } pcg32_random_t;
 
 pcg32_random_t prng;
 
-void pcg32_seed(uint64_t seed1, uint64_t seed2) {
+void __seed(uint64_t seed1, uint64_t seed2) {
 	prng.state = seed1;
 	prng.inc   = seed2;
 
@@ -23,7 +23,7 @@ uint32_t pcg32_random_r(pcg32_random_t* rng) {
     return (xorshifted >> rot) | (xorshifted << ((-rot) & 31));
 }
 
-uint64_t rand64() {
+uint64_t __rand64() {
 	uint64_t high = pcg32_random_r(&prng);
 	uint32_t low  = pcg32_random_r(&prng);
 
@@ -34,7 +34,7 @@ uint64_t rand64() {
 	return ret;
 }
 
-uint32_t rand32() {
+uint32_t __rand32() {
 	uint32_t ret = pcg32_random_r(&prng);
 
 	return ret;
