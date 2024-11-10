@@ -155,11 +155,8 @@ sub random_int {
 
 	if ($max < $min) { die("Max can't be less than min"); }
 
-	# FIXME: This is modulus and biased... fix later
-	my $range  = $max - $min + 1; # +1 makes it inclusive of $min AND $max
-	my $num    = _rand64();
-	my $ret    = $num % $range;
-	# Add back the offset
+	my $range = $max - $min + 1; # +1 makes it inclusive
+	my $ret   = _bounded_rand($range);
 	$ret      += $min;
 
 	return $ret;
