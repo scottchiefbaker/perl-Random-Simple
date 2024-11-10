@@ -103,8 +103,8 @@ sub seed_with_random {
 		close $FH;
 	} else {
 		# FIXME: Use real entropy this is just a proof of concept
-		$seed1 = int(rand() * (2**64) -1);
-		$seed2 = int(rand() * (2**64) -1);
+		$seed1 = perl_rand64();
+		$seed2 = perl_rand64();
 	}
 
 	if ($DEBUG) {
@@ -118,6 +118,15 @@ sub seed_with_random {
 	$has_been_seeded = 1;
 
 	warmup(32);
+}
+
+sub perl_rand64 {
+	my $high = rand(2**32 - 1);
+	my $low  = rand(2**32 - 1);
+
+	my $ret = ($high << 32 | $low);
+
+	return $ret;
 }
 
 sub random_bytes {
