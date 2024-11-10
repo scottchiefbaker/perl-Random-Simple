@@ -20,14 +20,14 @@ my $num = Random::Simple::random_int($min, $max);
 print "Random number between $min and $max = $num\n\n";
 
 for (1 .. 9) {
-	my $x = Random::Simple::random_int(0, 2**32 - 1);
+	my $x = Random::Simple::_rand32();
 	print "32 #$_: $x\n";
 }
 
 print "\n";
 
 for (1 .. 9) {
-	my $x = Random::Simple::random_int(0, 2**63 - 1);
+	my $x = Random::Simple::_rand64();
 	print "64 #$_: $x\n";
 }
 
