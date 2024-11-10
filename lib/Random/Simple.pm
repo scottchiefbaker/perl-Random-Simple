@@ -1,5 +1,5 @@
 package Random::Simple;
-BEGIN { our $VERSION = 0.02 }
+BEGIN { our $VERSION = 0.03 }
 
 #############################################################
 
