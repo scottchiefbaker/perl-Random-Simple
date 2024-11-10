@@ -5,9 +5,48 @@ BEGIN { our $VERSION = 0.03 }
 
 =encoding utf8
 
-=head1 NAME
+=head1 Random::Simple
 
 Random::Simple - Simple, usable, real world random numbers
+
+=head2 Why Random::Simple?
+
+To make generating random numbers as easy as possible and in a manner that
+you can use in real code. Generate "good" random numbers without having to
+think about it.
+
+=head2 Usage
+
+    use Random::Simple;
+
+    my $integer = random_int($min, $max); # inclusive
+    my $bytes   = random_bytes($count);
+
+=head2 See also
+
+=over
+
+=item *
+Math::Random::PCG32
+
+=item *
+Math::Random::ISAAC
+
+=item *
+Math::Random::MT
+
+=item *
+Math::Random::Secure
+
+=back
+
+=head2 More information
+
+https://github.com/scottchiefbaker/perl-Random-Simple
+
+=head2 Author
+
+Scott Baker - https://www.perturb.org/
 
 =cut
 
