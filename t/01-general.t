@@ -43,4 +43,40 @@ for (0 .. 10000) {
 ok(defined($data->{$min}), "random_int() contains lower bound") or diag("$min not in sample");
 ok(defined($data->{$max}), "random_int() contains upper bound") or diag("$max not in sample");
 
+###################################################################
+# Logic: generate a bunch of randoms and calculate the average
+# to see if we fall in a logical threshold
+###################################################################
+
+my $i     = 0;
+my $total = 0;
+my $count = 10000;
+while ($i < $count) {
+	my $num = Random::Simple::_rand32();
+	$total += $num;
+	$i++;
+}
+
+my $avg_32 = int($total / $count);
+#print "32: $avg_32\n";
+
+cmp_ok($avg_32, '>', 0    , "rand32() generates numbers");
+cmp_ok($avg_32, '<', 2**32, "rand32() generates the right size numbers");
+
+###################################################################
+
+$i     = 0;
+$total = 0;
+while ($i < $count) {
+	my $num = Random::Simple::_rand64();
+	$total += $num;
+	$i++;
+}
+
+my $avg_64 = int($total / $count);
+#print "64: $avg_64\n";
+
+cmp_ok($avg_64, '>', 2**32, "rand64() generates the right size numbers");
+cmp_ok($avg_64, '<', 2**64, "rand64() generates the right size numbers");
+
 done_testing();
