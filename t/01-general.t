@@ -16,8 +16,8 @@ my $max = 200;
 
 my $num = random_int($min, $max);
 
-cmp_ok($num, '<', $max, "Less than max");
-cmp_ok($num, '>', $min, "More than min");
+cmp_ok($num, '<', $max + 1, "Less than max");
+cmp_ok($num, '>', $min - 1, "More than min");
 
 cmp_ok(random_int(2**8, 2**32 -1) , '>', 2**8 - 1 , "More than 2^8");
 cmp_ok(random_int(2**16, 2**32 -1), '>', 2**16 - 1, "More than 2^16");
