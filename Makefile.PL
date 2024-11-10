@@ -7,8 +7,6 @@ WriteMakefile(
 	PREREQ_PM        => { 'ExtUtils::MakeMaker' => '7.12' },
 	ABSTRACT_FROM    => 'lib/Random/Simple.pm',
 	AUTHOR           => 'Scott Baker',
-	CCFLAGS          => '-Wall -std=c99',
-	OPTIMIZE         => '-O3',
 	XSMULTI          => 1,
 	AUTHOR           => 'Scott Baker <bakerscot@cpan.org>',
 	LICENSE          => 'mit',
