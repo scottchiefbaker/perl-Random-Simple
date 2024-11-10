@@ -94,7 +94,7 @@ sub seed_with_random {
 
 	if (-r "/dev/urandom") {
 		open(my $FH, "<", "/dev/urandom");
-		my $ok = read($FH, $bytes, 16);
+		my $ok = sysread($FH, $bytes, 16);
 
 		# Build 2x 64bit unsigned ints from the raw bytes
 		$seed1 = unpack("Q", substr($bytes, 0, 8));
