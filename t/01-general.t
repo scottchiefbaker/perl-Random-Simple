@@ -30,4 +30,17 @@ is(length(random_bytes(-1))   , 0   , "Generate -1 random bytes");
 is(length(random_bytes(49))   , 49  , "Generate 49 random bytes");
 is(length(random_bytes(1024)) , 1024, "Generate 1024 random bytes");
 
+# Pick a bunch of random numbers to give us a sample
+my $data = {};
+$min     = -5;
+$max     = 5;
+for (0 .. 10000) {
+	my $num = random_int($min, $max);
+	$data->{$num}++;
+}
+
+# Make sure we contain the lower and upper bounds (inclusive)
+ok(defined($data->{$min}), "random_int() contains lower bound") or diag("$min not in sample");
+ok(defined($data->{$max}), "random_int() contains upper bound") or diag("$max not in sample");
+
 done_testing();
