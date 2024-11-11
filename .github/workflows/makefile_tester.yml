@@ -7,7 +7,7 @@ on:
       branches: '*'
 
 jobs:
-  perl-job:
+  Ubuntu:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -35,7 +35,7 @@ jobs:
       - name: Regular tests
         run: make test
 
-  windows:
+  Windows:
     runs-on: windows-latest
 
     steps:
