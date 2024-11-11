@@ -10,6 +10,7 @@
 // Alernate PRNGs available
 //#include "xorshiro.h"
 //#include "xoroshiro128starstar.h"
+//#include "splitmix64.h"
 //
 // Other PRGNs just need three functions _seed(S1,S2), _rand32(),
 // and _rand64()
