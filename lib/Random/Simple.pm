@@ -10,7 +10,7 @@ use warnings;
 
 =encoding utf8
 
-=head1 Random::Simple
+=head1 NAME
 
 Random::Simple - Simple, usable, real world random numbers
 
