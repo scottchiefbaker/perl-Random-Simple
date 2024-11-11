@@ -147,13 +147,13 @@ sub random_bytes {
 
 	if (!$has_been_seeded) { seed_with_random(); }
 
-	my $octets_needed = $num / 8;
+	my $octets_needed = $num / 4;
 
 	my $ret = "";
 	for (my $i = 0; $i < $octets_needed; $i++) {
-		my $num = _rand64();
+		my $num = _rand32();
 
-		$ret .= pack("Q", $num);
+		$ret .= pack("L", $num);
 	}
 
 	$ret = substr($ret, 0, $num);
