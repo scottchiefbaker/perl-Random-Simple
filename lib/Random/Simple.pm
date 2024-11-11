@@ -98,8 +98,7 @@ sub seed_with_random {
 
 	if (-r "/dev/urandom") {
 		open(my $FH, "<", "/dev/urandom");
-		my $bytes;
-		my $ok = sysread($FH, $bytes, 16);
+		my $ok = sysread($FH, my $bytes, 16);
 
 		my ($high, $low);
 
