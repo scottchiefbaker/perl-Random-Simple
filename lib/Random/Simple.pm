@@ -101,9 +101,20 @@ sub seed_with_random {
 		my $bytes;
 		my $ok = sysread($FH, $bytes, 16);
 
-		# Build 2x 64bit unsigned ints from the raw bytes
-		$seed1 = unpack("Q", substr($bytes, 0, 8));
-		$seed2 = unpack("Q", substr($bytes, 8, 8));
+		my ($high, $low);
+
+		#my $has_64bit = ($Config{uvsize} == 8);
+
+		# Build the first 64bit seed manually
+		# Cannot use Q because it doesn't exist on 32bit Perls
+		$high  = unpack("L", substr($bytes, 0, 4));
+		$low   = unpack("L", substr($bytes, 4, 4));
+		$seed1 = ($high << 32) | $low;
+
+		# Build the second 64bit seed
+		$high  = unpack("L", substr($bytes, 8, 4));
+		$low   = unpack("L", substr($bytes, 12, 4));
+		$seed2 = ($high << 32) | $low;
 
 		close $FH;
 	} else {
