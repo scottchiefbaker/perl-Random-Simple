@@ -113,10 +113,8 @@ sub seed_with_random {
 	}
 
 	if ($debug) {
-		print "SEEDING RANDOMLY\n";
+		print "SEEDING RANDOMLY: $seed1 / $seed2\n";
 	}
-
-	#print("XXX: $seed1, $seed2\n");
 
 	_seed($seed1, $seed2);
 
