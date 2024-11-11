@@ -1,6 +1,10 @@
 package Random::Simple;
 
 our $VERSION = 0.04;
+our $debug   = 0;
+
+use strict;
+use warnings;
 
 #############################################################
 
@@ -107,7 +111,7 @@ sub seed_with_random {
 		$seed2 = perl_rand64();
 	}
 
-	if ($DEBUG) {
+	if ($debug) {
 		print "SEEDING RANDOMLY\n";
 	}
 
