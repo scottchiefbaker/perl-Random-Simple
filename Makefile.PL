@@ -1,4 +1,4 @@
-use 5.008005;
+use v5.36;
 use ExtUtils::MakeMaker 7.12; # for XSMULTI option
 
 WriteMakefile(
@@ -10,7 +10,7 @@ WriteMakefile(
 	XSMULTI          => 1,
 	AUTHOR           => 'Scott Baker <bakerscot@cpan.org>',
 	LICENSE          => 'mit',
-	MIN_PERL_VERSION => '5.010',
+	MIN_PERL_VERSION => '5.012',
 
 	CONFIGURE_REQUIRES => {
 		'ExtUtils::MakeMaker' => '0',
