@@ -1,6 +1,6 @@
 package Random::Simple;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 our $debug   = 0;
 
 use strict;
