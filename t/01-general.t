@@ -22,9 +22,12 @@ my $num = random_int($min, $max);
 cmp_ok($num, '<', $max + 1, "Less than max");
 cmp_ok($num, '>', $min - 1, "More than min");
 
-cmp_ok(random_int(2**8, 2**32 -1) , '>', 2**8 - 1 , "More than 2^8");
-cmp_ok(random_int(2**16, 2**32 -1), '>', 2**16 - 1, "More than 2^16");
-cmp_ok(random_int(2**24, 2**32 -1), '>', 2**24 - 1, "More than 2^24");
+cmp_ok(get_avg_random_int(2**8 , 2**32 -1), '>', 2**8 - 1 , "More than 2^8");
+cmp_ok(get_avg_random_int(2**16, 2**32 -1), '>', 2**16 - 1, "More than 2^16");
+cmp_ok(get_avg_random_int(2**24, 2**32 -1), '>', 2**24 - 1, "More than 2^24");
+
+cmp_ok(get_avg_random_int(0, 10), '>', 4.5, "random_int() with a zero min works");
+cmp_ok(get_avg_random_int(0, 10), '<', 5.5, "random_int() with a zero min works");
 
 is(length(random_bytes(16))   , 16  , "Generate 16 random bytes");
 is(length(random_bytes(1))    , 1   , "Generate one random bytes");
@@ -85,3 +88,24 @@ if ($has_64bit) {
 }
 
 done_testing();
+
+###################################################################
+###################################################################
+
+sub get_avg_random_int {
+	my ($min, $max, $count) = @_;
+
+	$count ||= 10000;
+
+	my $total = 0;
+	for (my $i = 0; $i < $count; $i++) {
+		my $num = random_int($min, $max);
+
+		$total += $num;
+	}
+
+	my $ret = $total / $count;
+	#print "($min, $max) $num / $count = $ret\n";
+
+	return $ret;
+}
