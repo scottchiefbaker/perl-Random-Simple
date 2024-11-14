@@ -18,17 +18,15 @@ my $has_64bit = ($Config{uvsize} == 8);
 my $min = 100;
 my $max = 200;
 
-my $num = random_int($min, $max);
-
-cmp_ok($num, '<', $max + 1, "Less than max");
-cmp_ok($num, '>', $min - 1, "More than min");
+cmp_ok(get_avg_random_int($min, $max), '<', $max + 1, "Less than max");
+cmp_ok(get_avg_random_int($min, $max), '>', $min - 1, "More than min");
 
 cmp_ok(get_avg_random_int(2**8 , 2**32 -1), '>', 2**8 - 1 , "More than 2^8");
 cmp_ok(get_avg_random_int(2**16, 2**32 -1), '>', 2**16 - 1, "More than 2^16");
 cmp_ok(get_avg_random_int(2**24, 2**32 -1), '>', 2**24 - 1, "More than 2^24");
 
-cmp_ok(get_avg_random_int(0, 10), '>', 4.5, "random_int() with a zero min works");
-cmp_ok(get_avg_random_int(0, 10), '<', 5.5, "random_int() with a zero min works");
+cmp_ok(get_avg_random_int(0, 10), '>', 4.5, "random_int() with a zero min works (more)");
+cmp_ok(get_avg_random_int(0, 10), '<', 5.5, "random_int() with a zero min works (less)");
 
 is(length(random_bytes(16))   , 16  , "Generate 16 random bytes");
 is(length(random_bytes(1))    , 1   , "Generate one random bytes");
