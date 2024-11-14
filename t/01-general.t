@@ -87,6 +87,14 @@ if ($has_64bit) {
 	cmp_ok($avg_64, '<', 2**64, "rand64() generates the right size numbers");
 }
 
+###################################################################
+
+# Statisically this should be right around 0.5
+cmp_ok(get_avg_random_float(), '>', 0.45, "random_float() generates the right size numbers");
+cmp_ok(get_avg_random_float(), '<', 0.55, "random_float() generates the right size numbers");
+
+###################################################################
+
 done_testing();
 
 ###################################################################
@@ -95,7 +103,7 @@ done_testing();
 sub get_avg_random_int {
 	my ($min, $max, $count) = @_;
 
-	$count ||= 10000;
+	$count ||= 50000;
 
 	my $total = 0;
 	for (my $i = 0; $i < $count; $i++) {
@@ -106,6 +114,24 @@ sub get_avg_random_int {
 
 	my $ret = $total / $count;
 	#print "($min, $max) $num / $count = $ret\n";
+
+	return $ret;
+}
+
+sub get_avg_random_float {
+	my ($count) = @_;
+
+	$count ||= 50000;
+
+	my $total = 0;
+	for (my $i = 0; $i < $count; $i++) {
+		my $num = random_float();
+
+		$total += $num;
+	}
+
+	my $ret = $total / $count;
+	#print "FF: $total / $count = $ret\n";
 
 	return $ret;
 }
