@@ -26,7 +26,12 @@ think about it.
     use Random::Simple;
 
     my $integer = random_int($min, $max); # inclusive
-    my $bytes   = random_bytes($count);
+    my $float   = random_float();         # 0 - 1 inclusive
+    my $bytes   = random_bytes($count);   # string of X bytes
+
+	my $die_roll       = random_int(1, 6);
+	my $random_percent = random_float() * 100;
+	my $buffer         = random_bytes(8);
 
 =head2 Methodology
 
