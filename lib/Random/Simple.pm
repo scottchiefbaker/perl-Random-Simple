@@ -149,7 +149,7 @@ sub seed_with_random {
 
 	$has_been_seeded = 1;
 
-	warmup(32);
+	warmup(1024);
 }
 
 sub perl_rand64 {
