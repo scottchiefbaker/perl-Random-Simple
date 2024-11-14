@@ -5,6 +5,7 @@ our $debug   = 0;
 
 use strict;
 use warnings;
+use Time::HiRes();
 
 #############################################################
 
@@ -131,6 +132,13 @@ sub seed_with_random {
 		# FIXME: Use real entropy this is just a proof of concept
 		$seed1 = perl_rand64();
 		$seed2 = perl_rand64();
+
+		# In case someone messes around with Perl's srand() this should mask
+		# off some of that
+		my $hr_time = int(Time::HiRes::time() * 100000);
+
+		$seed1 = $seed1 ^ $hr_time;
+		$seed2 = $seed2 ^ $hr_time;
 	}
 
 	if ($debug) {
