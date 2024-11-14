@@ -4,10 +4,13 @@ use strict;
 use warnings;
 use v5.16;
 
+use Random::Simple;
+
 ###############################################################################
 ###############################################################################
 
-use Random::Simple;
+my $ver = $Random::Simple::VERSION;
+printf("Using %s %s\n\n", color('yellow', 'Random::Simple'), color('white', "v" .$ver));
 
 my $x   = Random::Simple::random_bytes(14);
 my $len = length($x);
