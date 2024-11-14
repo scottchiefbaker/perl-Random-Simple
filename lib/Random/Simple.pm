@@ -5,7 +5,7 @@ our $debug   = 0;
 
 use strict;
 use warnings;
-use Time::HiRes();
+use Time::HiRes;
 
 #############################################################
 
@@ -135,10 +135,10 @@ sub seed_with_random {
 
 		# In case someone messes around with Perl's srand() this should mask
 		# off some of that
-		my $hr_time = int(Time::HiRes::time() * 100000);
+		my $hr_time = int(Time::HiRes::time() * 100000); # 49 bits as of 2024
 
 		$seed1 = $seed1 ^ $hr_time;
-		$seed2 = $seed2 ^ $hr_time;
+		$seed2 = $seed2 ^ ($hr_time << 14);
 	}
 
 	if ($debug) {
