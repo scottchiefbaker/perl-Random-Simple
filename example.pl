@@ -16,8 +16,21 @@ print "Got $len random bytes: 0x$str\n\n";
 
 my $min = -20;
 my $max = 10;
-my $num = Random::Simple::random_int($min, $max);
-print "Random number between $min and $max = $num\n\n";
+my @nums;
+for (1 .. 9) {
+	my $num = Random::Simple::random_int($min, $max);
+	push(@nums, $num);
+}
+
+my $num_str = join(", ", @nums);
+print "Random numbers (inclusive) between $min and $max = $num_str\n\n";
+
+for (1 .. 9) {
+	my $x = Random::Simple::random_float();
+	print "Float #$_: $x\n";
+}
+
+print "\n";
 
 for (1 .. 9) {
 	my $x = Random::Simple::_rand32();
