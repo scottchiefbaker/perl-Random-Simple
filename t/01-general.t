@@ -40,7 +40,7 @@ is(length(random_bytes(1024)) , 1024, "Generate 1024 random bytes");
 my $data = {};
 $min     = -5;
 $max     = 5;
-for (0 .. 10000) {
+for (0 .. 50000) {
 	my $num = random_int($min, $max);
 	$data->{$num}++;
 }
@@ -54,38 +54,13 @@ ok(defined($data->{$max}), "random_int() contains upper bound") or diag("$max no
 # to see if we fall in a logical threshold
 ###################################################################
 
-my $i     = 0;
-my $total = 0;
-my $count = 10000;
-while ($i < $count) {
-	my $num = Random::Simple::_rand32();
-	$total += $num;
-	$i++;
-}
+# Average should be about 2**31
+cmp_ok(get_avg_randX(32), '>', 2**30, "rand32() generates the right size numbers");
+cmp_ok(get_avg_randX(32), '<', 2**32, "rand32() generates the right size numbers");
 
-my $avg_32 = int($total / $count);
-#print "32: $avg_32\n";
-
-cmp_ok($avg_32, '>', 0    , "rand32() generates numbers");
-cmp_ok($avg_32, '<', 2**32, "rand32() generates the right size numbers");
-
-###################################################################
-
-if ($has_64bit) {
-	$i     = 0;
-	$total = 0;
-	while ($i < $count) {
-		my $num = Random::Simple::_rand64();
-		$total += $num;
-		$i++;
-	}
-
-	my $avg_64 = int($total / $count);
-	#print "64: $avg_64\n";
-
-	cmp_ok($avg_64, '>', 2**32, "rand64() generates the right size numbers");
-	cmp_ok($avg_64, '<', 2**64, "rand64() generates the right size numbers");
-}
+# Average should be about 2**63
+cmp_ok(get_avg_randX(64), '>', 2**62, "rand64() generates the right size numbers");
+cmp_ok(get_avg_randX(64), '<', 2**64, "rand64() generates the right size numbers");
 
 ###################################################################
 
@@ -99,6 +74,30 @@ done_testing();
 
 ###################################################################
 ###################################################################
+
+sub get_avg_randX {
+	my ($bits, $count) = @_;
+
+	$count ||= 50000;
+
+	my $total = 0;
+	for (my $i = 0; $i < $count; $i++) {
+		my $num;
+		if ($bits == 32) {
+			$num = Random::Simple::_rand32();
+		} elsif ($bits == 64) {
+			$num = Random::Simple::_rand64();
+		} else {
+			$num = 0; # bees?
+		}
+
+		$total += $num;
+	}
+
+	my $ret = $total / $count;
+
+	return $ret;
+}
 
 sub get_avg_random_int {
 	my ($min, $max, $count) = @_;
