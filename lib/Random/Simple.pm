@@ -73,7 +73,7 @@ require XSLoader;
 XSLoader::load();
 
 use Exporter 'import';
-our @EXPORT = qw(random_int random_bytes);
+our @EXPORT = qw(random_int random_bytes random_float);
 
 #############################################################
 
@@ -182,6 +182,18 @@ sub random_int {
 	my $range = $max - $min + 1; # +1 makes it inclusive
 	my $ret   = _bounded_rand($range);
 	$ret      += $min;
+
+	return $ret;
+}
+
+sub random_float {
+	if (!$has_been_seeded) { seed_with_random(); }
+
+	my $max = 2**31 - 1;
+	my $num = random_int(0, $max);
+	my $ret = $num / $max;
+
+	#print "$num / $max = $ret\n";
 
 	return $ret;
 }
