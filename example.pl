@@ -5,6 +5,13 @@ use warnings;
 use v5.16;
 
 use Random::Simple;
+use Getopt::Long;
+
+my $debug = 0;
+
+GetOptions(
+	'debug' => \$debug,
+);
 
 ###############################################################################
 ###############################################################################
@@ -37,14 +44,26 @@ print "\n";
 
 for (1 .. 5) {
 	my $x = Random::Simple::_rand32();
-	print "32 #$_: $x\n";
+	my $per = sprintf("%0.1f%%", ($x / (2**32 - 1) * 100));
+
+	if ($debug) {
+		print "32 #$_: $x ($per)\n";
+	} else {
+		print "32 #$_: $x\n";
+	}
 }
 
 print "\n";
 
 for (1 .. 5) {
 	my $x = Random::Simple::_rand64();
-	print "64 #$_: $x\n";
+	my $per = sprintf("%0.1f%%", ($x / (2**64 - 1) * 100));
+
+	if ($debug) {
+		print "64 #$_: $x ($per)\n";
+	} else {
+		print "64 #$_: $x\n";
+	}
 }
 
 ###############################################################################
