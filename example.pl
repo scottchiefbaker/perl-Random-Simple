@@ -28,21 +28,21 @@ for (1 .. 9) {
 my $num_str = join(", ", @nums);
 print "Random numbers (inclusive) between $min and $max = $num_str\n\n";
 
-for (1 .. 9) {
+for (1 .. 5) {
 	my $x = Random::Simple::random_float();
 	print "Float #$_: $x\n";
 }
 
 print "\n";
 
-for (1 .. 9) {
+for (1 .. 5) {
 	my $x = Random::Simple::_rand32();
 	print "32 #$_: $x\n";
 }
 
 print "\n";
 
-for (1 .. 9) {
+for (1 .. 5) {
 	my $x = Random::Simple::_rand64();
 	print "64 #$_: $x\n";
 }
