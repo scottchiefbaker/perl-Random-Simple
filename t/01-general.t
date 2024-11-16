@@ -38,12 +38,12 @@ is(length(random_bytes(1024)) , 1024, "Generate 1024 random bytes");
 # Build a list of a bunch of random numbers
 my @nums;
 for (my $i = 0; $i < 50000; $i++) {
-	push(@nums, int(rand() * 1000));
+	push(@nums, random_int($min, $max));
 }
 
 # Check if ANY of the items are the mim/max
-my $has_min = int(any { $_ == 0} @nums);
-my $has_max = int(any { $_ == 999} @nums);
+my $has_min = int(any { $_ == $min } @nums);
+my $has_max = int(any { $_ == $max } @nums);
 
 # Make sure we contain the lower and upper bounds (inclusive)
 ok($has_min, "random_int() contains lower bound") or diag("$min not in sample");
