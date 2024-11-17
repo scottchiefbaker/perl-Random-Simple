@@ -6,6 +6,7 @@ our $debug   = 0;
 use strict;
 use warnings;
 use Time::HiRes;
+use Carp qw(croak);
 
 #############################################################
 
@@ -109,47 +110,56 @@ sub seed {
 	$has_been_seeded = 1;
 }
 
+sub os_random_bytes {
+	my $count  = shift();
+	my $ret    = "";
+	my $buffer = "";
+
+	if ($^O eq 'MSWin32') {
+		require Win32::API;
+
+		my $rand = Win32::API->new('advapi32', 'INT SystemFunction036(PVOID RandomBuffer, ULONG RandomBufferLength)') or croak("Could not import SystemFunction036: $^E");
+
+		$buffer = chr(0) x $count;
+		$rand->Call($buffer, $count) or croak("Could not read from csprng: $^E");
+
+		$ret = $buffer;
+	} elsif (-r "/dev/urandom") {
+		open my $urandom, '<:raw', '/dev/urandom' or croak("Couldn't open /dev/urandom: $!");
+
+		sysread($urandom, $buffer, $count) or croak("Couldn't read from csprng: $!");
+		$ret = $buffer;
+	};
+
+	if (length($ret) != $count) {
+		croak("Unable to read $count bytes from OS");
+	}
+
+	return $ret;
+}
+
 # Randomly seed the PRNG and warmup
 sub seed_with_random {
-	my ($seed1, $seed2);
+	my $bytes = os_random_bytes(16);
 
-	if (-r "/dev/urandom") {
-		open(my $FH, "<", "/dev/urandom");
-		my $ok = sysread($FH, my $bytes, 16);
+	my ($high, $low, $seed1, $seed2);
 
-		my ($high, $low);
+	# Build the first 64bit seed manually
+	# Cannot use Q because it doesn't exist on 32bit Perls
+	$high  = unpack("L", os_random_bytes(4));
+	$low   = unpack("L", os_random_bytes(4));
+	$seed1 = ($high << 32) | $low;
 
-		#my $has_64bit = ($Config{uvsize} == 8);
-
-		# Build the first 64bit seed manually
-		# Cannot use Q because it doesn't exist on 32bit Perls
-		$high  = unpack("L", substr($bytes, 0, 4));
-		$low   = unpack("L", substr($bytes, 4, 4));
-		$seed1 = ($high << 32) | $low;
-
-		# Build the second 64bit seed
-		$high  = unpack("L", substr($bytes, 8, 4));
-		$low   = unpack("L", substr($bytes, 12, 4));
-		$seed2 = ($high << 32) | $low;
-
-		close $FH;
-	} else {
-		# FIXME: Use real entropy this is just a proof of concept
-		$seed1 = perl_rand64();
-		$seed2 = perl_rand64();
-
-		# In case someone messes around with Perl's srand() this should mask
-		# off some of that
-		my $hr_time = int(Time::HiRes::time() * 100000); # 49 bits as of 2024
-
-		$seed1 = $seed1 ^ $hr_time;
-		$seed2 = $seed2 ^ ($hr_time << 14);
-	}
+	# Build the second 64bit seed
+	$high  = unpack("L", os_random_bytes(4));
+	$low   = unpack("L", os_random_bytes(4));
+	$seed2 = ($high << 32) | $low;
 
 	if ($debug) {
 		print "SEEDING RANDOMLY: $seed1 / $seed2\n";
 	}
 
+	# Seed the PRNG with the values we just created
 	_seed($seed1, $seed2);
 
 	$has_been_seeded = 1;
