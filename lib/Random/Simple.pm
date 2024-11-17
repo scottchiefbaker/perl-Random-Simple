@@ -71,7 +71,7 @@ sub os_random_bytes {
 }
 
 # Randomly seed the PRNG and warmup
-sub seed_with_random {
+sub seed_with_os_random {
 	my ($high, $low, $seed1, $seed2);
 
 	# Build the first 64bit seed manually
@@ -109,7 +109,7 @@ sub perl_rand64 {
 sub random_bytes {
 	my $num = shift();
 
-	if (!$has_been_seeded) { seed_with_random(); }
+	if (!$has_been_seeded) { seed_with_os_random(); }
 
 	my $octets_needed = $num / 4;
 
@@ -128,7 +128,7 @@ sub random_bytes {
 sub random_int {
 	my ($min, $max) = @_;
 
-	if (!$has_been_seeded) { seed_with_random(); }
+	if (!$has_been_seeded) { seed_with_os_random(); }
 
 	if ($max < $min) { die("Max can't be less than min"); }
 
@@ -140,7 +140,7 @@ sub random_int {
 }
 
 sub random_float {
-	if (!$has_been_seeded) { seed_with_random(); }
+	if (!$has_been_seeded) { seed_with_os_random(); }
 
 	my $max = 2**31 - 1;
 	my $num = random_int(0, $max);
