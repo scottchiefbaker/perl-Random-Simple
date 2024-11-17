@@ -113,22 +113,18 @@ sub seed {
 sub os_random_bytes {
 	my $count  = shift();
 	my $ret    = "";
-	my $buffer = "";
 
 	if ($^O eq 'MSWin32') {
 		require Win32::API;
 
 		my $rand = Win32::API->new('advapi32', 'INT SystemFunction036(PVOID RandomBuffer, ULONG RandomBufferLength)') or croak("Could not import SystemFunction036: $^E");
 
-		$buffer = chr(0) x $count;
-		$rand->Call($buffer, $count) or croak("Could not read from csprng: $^E");
-
-		$ret = $buffer;
+		$ret = chr(0) x $count;
+		$rand->Call($ret, $count) or croak("Could not read from csprng: $^E");
 	} elsif (-r "/dev/urandom") {
 		open my $urandom, '<:raw', '/dev/urandom' or croak("Couldn't open /dev/urandom: $!");
 
-		sysread($urandom, $buffer, $count) or croak("Couldn't read from csprng: $!");
-		$ret = $buffer;
+		sysread($urandom, $ret, $count) or croak("Couldn't read from csprng: $!");
 	} else {
 		croak("Unknown operating systen $^O");
 	};
