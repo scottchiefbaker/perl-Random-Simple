@@ -108,6 +108,7 @@ sub random_bytes {
 	for (my $i = 0; $i < $octets_needed; $i++) {
 		my $num = _rand32();
 
+		# Convert the integer into a 4 byte string
 		$ret .= pack("L", $num);
 	}
 
