@@ -140,8 +140,6 @@ sub os_random_bytes {
 
 # Randomly seed the PRNG and warmup
 sub seed_with_random {
-	my $bytes = os_random_bytes(16);
-
 	my ($high, $low, $seed1, $seed2);
 
 	# Build the first 64bit seed manually
