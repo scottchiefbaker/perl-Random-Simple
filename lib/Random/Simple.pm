@@ -10,71 +10,6 @@ use Carp qw(croak);
 
 #############################################################
 
-=encoding utf8
-
-=head1 NAME
-
-Random::Simple - Generate good random numbers in a user consumable way.
-
-=head2 Why Random::Simple?
-
-To make generating random numbers as easy as possible I<and> in a manner that
-you can use in real code. Generate "good" random numbers without having to
-think about it.
-
-=head2 Usage
-
-    use Random::Simple;
-
-    my $integer = random_int($min, $max); # inclusive
-    my $float   = random_float();         # 0 - 1 inclusive
-    my $bytes   = random_bytes($count);   # string of X bytes
-
-	my $die_roll       = random_int(1, 6);
-	my $random_percent = random_float() * 100;
-	my $buffer         = random_bytes(8);
-
-=head2 Methodology
-
-Perl's internal C<rand()> function uses C<drand48()> which is an older PRNG,
-and may have limitations. `Random::Simple` uses PCG which is: modern, simple,
-well vetted, and fast.
-
-C<Random::Simple> is automatically seeded with high quality entropy directly
-from your OS. On Linux this is C</dev/urandom> and on Windows it uses
-CryptGenRandom. You will get statistically unique random numbers
-automatically.
-
-=head2 See also
-
-=over
-
-=item *
-Math::Random::PCG32
-
-=item *
-Math::Random::ISAAC
-
-=item *
-Math::Random::MT
-
-=item *
-Math::Random::Secure
-
-=back
-
-=head2 More information
-
-https://github.com/scottchiefbaker/perl-Random-Simple
-
-=head2 Author
-
-Scott Baker - https://www.perturb.org/
-
-=cut
-
-#############################################################
-
 require XSLoader;
 
 XSLoader::load();
@@ -215,5 +150,70 @@ sub random_float {
 
 	return $ret;
 }
+
+#############################################################
+
+=encoding utf8
+
+=head1 NAME
+
+Random::Simple - Generate good random numbers in a user consumable way.
+
+=head2 Why Random::Simple?
+
+To make generating random numbers as easy as possible I<and> in a manner that
+you can use in real code. Generate "good" random numbers without having to
+think about it.
+
+=head2 Usage
+
+    use Random::Simple;
+
+    my $integer = random_int($min, $max); # inclusive
+    my $float   = random_float();         # 0 - 1 inclusive
+    my $bytes   = random_bytes($count);   # string of X bytes
+
+	my $die_roll       = random_int(1, 6);
+	my $random_percent = random_float() * 100;
+	my $buffer         = random_bytes(8);
+
+=head2 Methodology
+
+Perl's internal C<rand()> function uses C<drand48()> which is an older PRNG,
+and may have limitations. `Random::Simple` uses PCG which is: modern, simple,
+well vetted, and fast.
+
+C<Random::Simple> is automatically seeded with high quality entropy directly
+from your OS. On Linux this is C</dev/urandom> and on Windows it uses
+CryptGenRandom. You will get statistically unique random numbers
+automatically.
+
+=head2 See also
+
+=over
+
+=item *
+Math::Random::PCG32
+
+=item *
+Math::Random::ISAAC
+
+=item *
+Math::Random::MT
+
+=item *
+Math::Random::Secure
+
+=back
+
+=head2 More information
+
+https://github.com/scottchiefbaker/perl-Random-Simple
+
+=head2 Author
+
+Scott Baker - https://www.perturb.org/
+
+=cut
 
 1;
