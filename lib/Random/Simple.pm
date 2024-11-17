@@ -84,7 +84,6 @@ our @EXPORT = qw(random_int random_bytes random_float);
 
 #############################################################
 
-our $DEUBG          = 0;
 my $has_been_seeded = 0;
 
 # Throw away the first batch to warm up the PRNG, this is helpful
