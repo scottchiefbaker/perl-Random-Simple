@@ -49,9 +49,9 @@ for (1 .. 5) {
 	my $per = sprintf("%0.1f%%", ($x / (2**32 - 1) * 100));
 
 	if ($debug) {
-		print "32 #$_: $x ($per)\n";
+		print "32bit #$_: $x ($per)\n";
 	} else {
-		print "32 #$_: $x\n";
+		print "32bit #$_: $x\n";
 	}
 }
 
@@ -62,9 +62,9 @@ for (1 .. 5) {
 	my $per = sprintf("%0.1f%%", ($x / (2**64 - 1) * 100));
 
 	if ($debug) {
-		print "64 #$_: $x ($per)\n";
+		print "64bit #$_: $x ($per)\n";
 	} else {
-		print "64 #$_: $x\n";
+		print "64bit #$_: $x\n";
 	}
 }
 
