@@ -97,15 +97,6 @@ sub seed_with_os_random {
 	warmup(1024);
 }
 
-sub perl_rand64 {
-	my $high = rand(2**32 - 1);
-	my $low  = rand(2**32 - 1);
-
-	my $ret = ($high << 32 | $low);
-
-	return $ret;
-}
-
 sub random_bytes {
 	my $num = shift();
 
