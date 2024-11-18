@@ -5,7 +5,6 @@ use strict;
 use warnings;
 use Test::More;
 use Random::Simple;
-use List::Util qw(any);
 use Config;
 
 ########################################################
@@ -42,8 +41,8 @@ for (my $i = 0; $i < 50000; $i++) {
 }
 
 # Check if ANY of the items are the mim/max
-my $has_min = int(any { $_ == $min } @nums);
-my $has_max = int(any { $_ == $max } @nums);
+my $has_min = int(grep { $_ == $min } @nums);
+my $has_max = int(grep { $_ == $max } @nums);
 
 # Make sure we contain the lower and upper bounds (inclusive)
 ok($has_min, "random_int() contains lower bound") or diag("$min not in sample");
