@@ -57,9 +57,12 @@ ok($has_max, "random_int() contains upper bound") or diag("$max not in sample");
 cmp_ok(get_avg_randX(32), '>', 2**30, "rand32() generates the right size numbers");
 cmp_ok(get_avg_randX(32), '<', 2**32, "rand32() generates the right size numbers");
 
-# Average should be about 2**63
-cmp_ok(get_avg_randX(64), '>', 2**62, "rand64() generates the right size numbers");
-cmp_ok(get_avg_randX(64), '<', 2**64, "rand64() generates the right size numbers");
+# Only do the 64bit tests on platforms that support it
+if ($has_64bit) {
+	# Average should be about 2**63
+	cmp_ok(get_avg_randX(64), '>', 2**62, "rand64() generates the right size numbers");
+	cmp_ok(get_avg_randX(64), '<', 2**64, "rand64() generates the right size numbers");
+}
 
 ###################################################################
 
