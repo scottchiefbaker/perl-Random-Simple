@@ -143,7 +143,7 @@ sub random_float {
 	return $ret;
 }
 
-# Our rand() overrides Core::rand()
+# Our rand() overrides CORE::rand()
 sub rand {
 	my $mult = shift() || 1;
 	my $num  = random_float() * $mult;
