@@ -15,7 +15,7 @@ require XSLoader;
 XSLoader::load();
 
 use Exporter 'import';
-our @EXPORT = qw(random_int random_bytes random_float);
+our @EXPORT = qw(random_int random_bytes random_float rand);
 
 #############################################################
 
@@ -141,6 +141,14 @@ sub random_float {
 	#print "$num / $max = $ret\n";
 
 	return $ret;
+}
+
+# Our rand() overrides Core::rand()
+sub rand {
+	my $mult = shift() || 1;
+	my $num  = random_float() * $mult;
+
+	return $num;
 }
 
 #############################################################
