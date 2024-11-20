@@ -62,6 +62,8 @@ if ($has_64bit) {
 	# Average should be about 2**63
 	cmp_ok(get_avg_randX(64), '>', 2**62, "rand64() generates the right size numbers");
 	cmp_ok(get_avg_randX(64), '<', 2**64, "rand64() generates the right size numbers");
+} else {
+	diag("Skipping 64bit tests on 32bit platform");
 }
 
 ###################################################################
