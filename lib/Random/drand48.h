@@ -1,6 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////
-// Internally Perl uses drand48() for it's rand() function. This is a ChatGPT
-// recreated version of drand48() and should *NOT* be used. It's here
+// Internally Perl uses drand48 for it's rand() function. This is a ChatGPT
+// recreated version of drand48 and should *NOT* be used. It's here
 // strictly as proof of concept. There are much better PRNGs to use in 2024.
 //////////////////////////////////////////////////////////////////////////////
 

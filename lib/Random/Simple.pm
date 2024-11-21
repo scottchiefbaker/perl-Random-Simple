@@ -193,7 +193,7 @@ think about it.
 
 =head2 Methodology
 
-Perl's internal C<rand()> function uses C<drand48()> which is an older
+Perl's internal C<rand()> function uses C<drand48> which is an older
 pseudorandom number generator and may have limitations. `Random::Simple` uses
 PCG which is: modern, simple, well vetted, and fast. `Random::Simple` will
 upgrade/override the `rand()` function to use a better PRNG.

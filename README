@@ -33,7 +33,7 @@ my $rand_item  = $arr[random_int(0, @arr - 1)]; # Random array item
 
 ## 🧠 Methodology
 
-Perl's internal `rand()` function uses `drand48()` which is an older
+Perl's internal `rand()` function uses `drand48` which is an older
 pseudorandom number generator, and may have limitations. `Random::Simple` uses
 [PCG](https://www.pcg-random.org/download.html) which is: modern, simple,
 well vetted, and fast. `Random::Simple` will upgrade/override the `rand()`
