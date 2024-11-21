@@ -188,7 +188,7 @@ and may have limitations. `Random::Simple` uses PCG which is: modern, simple,
 well vetted, and fast. `Random::Simple` will upgrade/override the `rand()`
 function to use a better PRNG.
 
-C<Random::Simple> is automatically seeded with high quality entropy directly
+C<Random::Simple> is automatically seeded with entropy directly
 from your OS. On Linux this is C</dev/urandom> and on Windows it uses
 CryptGenRandom. You will get statistically unique random numbers
 automatically.

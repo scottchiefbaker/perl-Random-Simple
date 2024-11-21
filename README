@@ -39,7 +39,7 @@ and may have limitations. `Random::Simple` uses
 well vetted, and fast. `Random::Simple` will upgrade/override the `rand()`
 function to use a better PRNG.
 
-`Random::Simple` is automatically seeded with high quality entropy directly
+`Random::Simple` is automatically seeded with entropy directly
 from your OS. On Linux this is `/dev/urandom` and on Windows it uses
 CryptGenRandom. You will get statistically unique random numbers
 automatically.
