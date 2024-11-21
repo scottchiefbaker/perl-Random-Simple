@@ -26,6 +26,9 @@ my $bytes   = random_bytes($count);   # string of X bytes
 my $die_roll       = random_int(1, 6);
 my $random_percent = random_float() * 100;
 my $buffer         = random_bytes(8);
+
+my @arr        = ('red', 'green', 'blue');
+my $rand_item  = $arr[random_int(0, @arr - 1)]; # Random array item
 ```
 
 ## 🧠 Methodology
@@ -33,7 +36,8 @@ my $buffer         = random_bytes(8);
 Perl's internal `rand()` function uses `drand48()` which is an older PRNG,
 and may have limitations. `Random::Simple` uses
 [PCG](https://www.pcg-random.org/download.html) which is: modern, simple,
-well vetted, and fast.
+well vetted, and fast. `Random::Simple` will upgrade/override the `rand()`
+function to use a better PRNG.
 
 `Random::Simple` is automatically seeded with high quality entropy directly
 from your OS. On Linux this is `/dev/urandom` and on Windows it uses

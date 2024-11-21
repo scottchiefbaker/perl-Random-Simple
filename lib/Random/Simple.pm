@@ -178,11 +178,15 @@ think about it.
 	my $random_percent = random_float() * 100;
 	my $buffer         = random_bytes(8);
 
+	my @arr        = ('red', 'green', 'blue');
+	my $rand_item  = $arr[random_int(0, @arr - 1)]; # Random array item
+
 =head2 Methodology
 
 Perl's internal C<rand()> function uses C<drand48()> which is an older PRNG,
 and may have limitations. `Random::Simple` uses PCG which is: modern, simple,
-well vetted, and fast.
+well vetted, and fast. `Random::Simple` will upgrade/override the `rand()`
+function to use a better PRNG.
 
 C<Random::Simple> is automatically seeded with high quality entropy directly
 from your OS. On Linux this is C</dev/urandom> and on Windows it uses
