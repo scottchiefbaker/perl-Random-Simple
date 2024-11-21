@@ -70,19 +70,29 @@ sub os_random_bytes {
 	return $ret;
 }
 
+sub str_split {
+	my ($string, $chunk_size) = @_;
+	my @ret = $string =~ /.{1,$chunk_size}/g;
+
+	return @ret;
+}
+
 # Randomly seed the PRNG and warmup
 sub seed_with_os_random {
 	my ($high, $low, $seed1, $seed2);
 
+	my $bytes = os_random_bytes(16);
+	my @parts = str_split($bytes, 4);
+
 	# Build the first 64bit seed manually
 	# Cannot use Q because it doesn't exist on 32bit Perls
-	$high  = unpack("L", os_random_bytes(4));
-	$low   = unpack("L", os_random_bytes(4));
+	$high  = unpack("L", $parts[0]);
+	$low   = unpack("L", $parts[1]);
 	$seed1 = ($high << 32) | $low;
 
 	# Build the second 64bit seed
-	$high  = unpack("L", os_random_bytes(4));
-	$low   = unpack("L", os_random_bytes(4));
+	$high  = unpack("L", $parts[2]);
+	$low   = unpack("L", $parts[3]);
 	$seed2 = ($high << 32) | $low;
 
 	if ($debug) {
