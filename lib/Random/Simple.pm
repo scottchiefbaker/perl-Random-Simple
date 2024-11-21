@@ -144,7 +144,8 @@ sub random_float {
 }
 
 # Our rand() overrides CORE::rand()
-sub rand {
+# This prototype is required so we can emulate CORE::rand(@array)
+sub rand(;$) {
 	my $mult = shift() || 1;
 	my $num  = random_float() * $mult;
 
