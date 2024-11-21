@@ -195,8 +195,8 @@ think about it.
 
 Perl's internal C<rand()> function uses C<drand48> which is an older
 pseudorandom number generator and may have limitations. `Random::Simple` uses
-PCG which is: modern, simple, well vetted, and fast. `Random::Simple` will
-upgrade/override the `rand()` function to use a better PRNG.
+PCG which is: modern, simple, well vetted, and fast. Using `Random::Simple`
+will upgrade/override the `rand()` function to use a better PRNG.
 
 C<Random::Simple> is automatically seeded with entropy directly
 from your OS. On Linux this is C</dev/urandom> and on Windows it uses

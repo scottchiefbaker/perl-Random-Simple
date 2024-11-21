@@ -36,8 +36,8 @@ my $rand_item  = $arr[random_int(0, @arr - 1)]; # Random array item
 Perl's internal `rand()` function uses `drand48` which is an older
 pseudorandom number generator, and may have limitations. `Random::Simple` uses
 [PCG](https://www.pcg-random.org/download.html) which is: modern, simple,
-well vetted, and fast. `Random::Simple` will upgrade/override the `rand()`
-function to use a better PRNG.
+well vetted, and fast. Using `Random::Simple` will upgrade/override the
+`rand()` function to use a better PRNG.
 
 `Random::Simple` is automatically seeded with entropy directly
 from your OS. On Linux this is `/dev/urandom` and on Windows it uses
