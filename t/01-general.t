@@ -23,10 +23,12 @@ my $iterations = 5000;
 # bytes will be zero. With a seed of (0,0) you can see this
 #Random::Simple::seed(0,0); # Uncomment this to see the failure
 my $bytes = random_bytes(10);
-ok(substr($bytes, 0, 4) ne "\0\0\0\0", "First four bytes are not zero");
+my $ok    = ok(substr($bytes, 0, 4) ne "\0\0\0\0", "First four bytes are not zero");
 
-#my $str = sprintf('%v02X', $bytes);
-#print "$str\n";
+if (!$ok) {
+	my $str = sprintf('%v02X', $bytes);
+	diag("First ten bytes: $str");
+}
 
 cmp_ok(get_avg_random_int($min, $max, $iterations), '<', $max + 1, "Less than max");
 cmp_ok(get_avg_random_int($min, $max, $iterations), '>', $min - 1, "More than min");
