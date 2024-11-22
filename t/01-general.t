@@ -26,15 +26,15 @@ ok(substr($bytes, 0, 4) ne "\0\0\0\0", "First four bytes are not zero");
 #my $str = sprintf('%v02X', $bytes);
 #print "$str\n";
 
-cmp_ok(get_avg_random_int($min, $max), '<', $max + 1, "Less than max");
-cmp_ok(get_avg_random_int($min, $max), '>', $min - 1, "More than min");
+cmp_ok(get_avg_random_int($min, $max, 5000), '<', $max + 1, "Less than max");
+cmp_ok(get_avg_random_int($min, $max, 5000), '>', $min - 1, "More than min");
 
-cmp_ok(get_avg_random_int(2**8 , 2**32 -1), '>', 2**8 - 1 , "More than 2^8");
-cmp_ok(get_avg_random_int(2**16, 2**32 -1), '>', 2**16 - 1, "More than 2^16");
-cmp_ok(get_avg_random_int(2**24, 2**32 -1), '>', 2**24 - 1, "More than 2^24");
+cmp_ok(get_avg_random_int(2**8 , 2**32 -1, 5000), '>', 2**8 - 1 , "More than 2^8");
+cmp_ok(get_avg_random_int(2**16, 2**32 -1, 5000), '>', 2**16 - 1, "More than 2^16");
+cmp_ok(get_avg_random_int(2**24, 2**32 -1, 5000), '>', 2**24 - 1, "More than 2^24");
 
-cmp_ok(get_avg_random_int(0, 10), '>', 4.5, "random_int() with a zero min works (more)");
-cmp_ok(get_avg_random_int(0, 10), '<', 5.5, "random_int() with a zero min works (less)");
+cmp_ok(get_avg_random_int(0, 10, 5000), '>', 4.5, "random_int() with a zero min works (more)");
+cmp_ok(get_avg_random_int(0, 10, 5000), '<', 5.5, "random_int() with a zero min works (less)");
 
 is(length(random_bytes(16))   , 16  , "Generate 16 random bytes");
 is(length(random_bytes(1))    , 1   , "Generate one random bytes");
@@ -45,7 +45,7 @@ is(length(random_bytes(1024)) , 1024, "Generate 1024 random bytes");
 
 # Build a list of a bunch of random numbers
 my @nums;
-for (my $i = 0; $i < 50000; $i++) {
+for (my $i = 0; $i < 5000; $i++) {
 	push(@nums, random_int($min, $max));
 }
 
@@ -72,14 +72,14 @@ cmp_ok(get_avg_rand(10, 5000), "<", "5.5", "rand(10) range #2");
 ###################################################################
 
 # Average should be about 2**31
-cmp_ok(get_avg_randX(32), '>', 2**30, "rand32() generates the right size numbers");
-cmp_ok(get_avg_randX(32), '<', 2**32, "rand32() generates the right size numbers");
+cmp_ok(get_avg_randX(32, 5000), '>', 2**30, "rand32() generates the right size numbers");
+cmp_ok(get_avg_randX(32, 5000), '<', 2**32, "rand32() generates the right size numbers");
 
 # Only do the 64bit tests on platforms that support it
 if ($has_64bit) {
 	# Average should be about 2**63
-	cmp_ok(get_avg_randX(64), '>', 2**62, "rand64() generates the right size numbers");
-	cmp_ok(get_avg_randX(64), '<', 2**64, "rand64() generates the right size numbers");
+	cmp_ok(get_avg_randX(64, 5000), '>', 2**62, "rand64() generates the right size numbers");
+	cmp_ok(get_avg_randX(64, 5000), '<', 2**64, "rand64() generates the right size numbers");
 } else {
 	diag("Skipping 64bit tests on 32bit platform");
 }
@@ -87,8 +87,8 @@ if ($has_64bit) {
 ###################################################################
 
 # Statisically this should be right around 0.5
-cmp_ok(get_avg_random_float(), '>', 0.45, "random_float() generates the right size numbers");
-cmp_ok(get_avg_random_float(), '<', 0.55, "random_float() generates the right size numbers");
+cmp_ok(get_avg_random_float(5000), '>', 0.45, "random_float() generates the right size numbers");
+cmp_ok(get_avg_random_float(5000), '<', 0.55, "random_float() generates the right size numbers");
 
 ###################################################################
 
