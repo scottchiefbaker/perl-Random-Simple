@@ -57,6 +57,15 @@ my $has_max = int(grep { $_ == $max } @nums);
 ok($has_min, "random_int() contains lower bound") or diag("$min not in sample");
 ok($has_max, "random_int() contains upper bound") or diag("$max not in sample");
 
+cmp_ok(get_avg_rand(undef, 5000), ">", "0.45", "rand() range #1");
+cmp_ok(get_avg_rand(undef, 5000), "<", "0.55", "rand() range #2");
+
+cmp_ok(get_avg_rand(1, 5000), ">", "0.45", "rand(1) range #1");
+cmp_ok(get_avg_rand(1, 5000), "<", "0.55", "rand(1) range #2");
+
+cmp_ok(get_avg_rand(10, 5000), ">", "4.5", "rand(10) range #1");
+cmp_ok(get_avg_rand(10, 5000), "<", "5.5", "rand(10) range #2");
+
 ###################################################################
 # Logic: generate a bunch of randoms and calculate the average
 # to see if we fall in a logical threshold
@@ -144,6 +153,29 @@ sub get_avg_random_float {
 
 	my $ret = $total / $count;
 	#print "FF: $total / $count = $ret\n";
+
+	return $ret;
+}
+
+sub get_avg_rand {
+	my ($one, $count) = @_;
+
+	$count ||= 50000;
+
+	my $total = 0;
+	for (my $i = 0; $i < $count; $i++) {
+		my $num;
+		if (defined $one) {
+			$num = rand($one);
+		} else {
+			$num = rand();
+		}
+
+		$total += $num;
+	}
+
+	my $ret = $total / $count;
+	#print "($min, $max) $num / $count = $ret\n";
 
 	return $ret;
 }
