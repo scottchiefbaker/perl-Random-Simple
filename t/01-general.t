@@ -44,19 +44,19 @@ cmp_ok(get_avg_random_int(2**24, 2**32 -1, $iterations), '>', 2**24 - 1, "More t
 
 # Test with a zero minimum
 $num = get_avg_random_int(0, 10, $iterations);
-ok($num > 4.7 && $num < 5.3, "random_int(0, 10) with a zero min within range") or diag("$num not between 4.7 and 5.3");
+ok($num > 4.7 && $num < 5.3, "random_int(0, 10) a zero min") or diag("$num not between 4.7 and 5.3");
 
 # Test with zero maximum
 $num = get_avg_random_int(-50, 0, $iterations);
-ok($num > -26 && $num < -24, "random_int(-50, 0)") or diag("$num not between -26 and -24");
+ok($num > -26 && $num < -24, "random_int(-50, 0) a zero maximum") or diag("$num not between -26 and -24");
 
 # Negative range
 $num = get_avg_random_int(-100, -75, $iterations);
-ok($num > -88 && $num < -87, "random_int(-100, -75)") or diag("$num not between -88 and -87");
+ok($num > -88 && $num < -87, "random_int(-100, -75) fully negative range") or diag("$num not between -88 and -87");
 
 # Positive range that does NOT start at zero
 $num = get_avg_random_int(1, 10, $iterations);
-ok($num > 5.3 && $num < 5.6, "Random int between 1 and 10") or diag("$num not between 5.3 and 5.6");
+ok($num > 5.3 && $num < 5.6, "random_int(1, 10)") or diag("$num not between 5.3 and 5.6");
 
 #########################################################################
 #########################################################################
