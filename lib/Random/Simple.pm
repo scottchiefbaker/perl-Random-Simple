@@ -70,9 +70,16 @@ sub os_random_bytes {
 	return $ret;
 }
 
+# Split a string into an array of smaller length strings
 sub str_split {
-	my ($string, $chunk_size) = @_;
-	my @ret = $string =~ /.{1,$chunk_size}/g;
+    my ($string, $chunk_size) = @_;
+	my $num_chunks = length($string) / $chunk_size;
+
+    my @ret = ();
+	for (my $i = 0; $i < $num_chunks; $i++) {
+		my $str = substr($string, $i * $chunk_size, $chunk_size);
+		push(@ret, $str);
+	}
 
 	return @ret;
 }
