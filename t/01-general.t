@@ -12,34 +12,56 @@ use Config;
 # checking of the bounds                               #
 ########################################################
 
+# Check if the UV (unsigned value) Perl type is 64bit
 my $has_64bit = ($Config{uvsize} == 8);
 
 my $min = 100;
 my $max = 200;
+my $num = 0; # placeholder for re-usable var
 
-my $iterations = 5000;
+# Number of iterations to use for our average testing
+my $iterations = 10000;
 
 # If for some reason the automatic seeding does not work the first eight
 # bytes will be zero. With a seed of (0,0) you can see this
 #Random::Simple::seed(0,0); # Uncomment this to see the failure
 my $bytes = random_bytes(10);
-my $ok    = ok(substr($bytes, 0, 4) ne "\0\0\0\0", "First four bytes are not zero");
+my $ok    = ok(substr($bytes, 0, 4) ne "\0\0\0\0", "First four bytes are NOT zero");
 
 if (!$ok) {
 	my $str = sprintf('%v02X', $bytes);
 	diag("First ten bytes: $str");
 }
 
-cmp_ok(get_avg_random_int($min, $max, $iterations), '<', $max + 1, "Less than max");
-cmp_ok(get_avg_random_int($min, $max, $iterations), '>', $min - 1, "More than min");
+# Test integer range that's positive
+$num = get_avg_random_int($min, $max, $iterations);
+ok($num >= $min && $num <= $max, "Random int between $min and $max") or diag("$num not between $min and $max");
 
+# Test that we generate big numbers
 cmp_ok(get_avg_random_int(2**8 , 2**32 -1, $iterations), '>', 2**8 - 1 , "More than 2^8");
 cmp_ok(get_avg_random_int(2**16, 2**32 -1, $iterations), '>', 2**16 - 1, "More than 2^16");
 cmp_ok(get_avg_random_int(2**24, 2**32 -1, $iterations), '>', 2**24 - 1, "More than 2^24");
 
-cmp_ok(get_avg_random_int(0, 10, $iterations), '>', 4.5, "random_int() with a zero min works (more)");
-cmp_ok(get_avg_random_int(0, 10, $iterations), '<', 5.5, "random_int() with a zero min works (less)");
+# Test with a zero minimum
+$num = get_avg_random_int(0, 10, $iterations);
+ok($num > 4.7 && $num < 5.3, "random_int(0, 10) with a zero min within range") or diag("$num not between 4.7 and 5.3");
 
+# Test with zero maximum
+$num = get_avg_random_int(-50, 0, $iterations);
+ok($num > -26 && $num < -24, "random_int(-50, 0)") or diag("$num not between -26 and -24");
+
+# Negative range
+$num = get_avg_random_int(-100, -75, $iterations);
+ok($num > -88 && $num < -87, "random_int(-100, -75)") or diag("$num not between -88 and -87");
+
+# Positive range that does NOT start at zero
+$num = get_avg_random_int(1, 10, $iterations);
+ok($num > 5.3 && $num < 5.6, "Random int between 1 and 10") or diag("$num not between 5.3 and 5.6");
+
+#########################################################################
+#########################################################################
+
+# Test to make sure we're making the RIGHT number of random bytes
 is(length(random_bytes(16))   , 16  , "Generate 16 random bytes");
 is(length(random_bytes(1))    , 1   , "Generate one random bytes");
 is(length(random_bytes(0))    , 0   , "Generate zero random bytes");
@@ -61,29 +83,30 @@ my $has_max = int(grep { $_ == $max } @nums);
 ok($has_min, "random_int() contains lower bound") or diag("$min not in sample");
 ok($has_max, "random_int() contains upper bound") or diag("$max not in sample");
 
-cmp_ok(get_avg_rand(undef, $iterations), ">", "0.45", "rand() range #1");
-cmp_ok(get_avg_rand(undef, $iterations), "<", "0.55", "rand() range #2");
+# rand() test
+$num = get_avg_rand(undef, $iterations);
+ok($num > 0.45 && $num < 0.55, "rand()") or diag("$num not between 0.45 and 0.55");
 
-cmp_ok(get_avg_rand(1, $iterations), ">", "0.45", "rand(1) range #1");
-cmp_ok(get_avg_rand(1, $iterations), "<", "0.55", "rand(1) range #2");
+# rand(1) test which should be the same as rand()
+$num = get_avg_rand(1, $iterations);
+ok($num > 0.45 && $num < 0.55, "rand(1)") or diag("$num not between 0.45 and 0.55");
 
-cmp_ok(get_avg_rand(10, $iterations), ">", "4.5", "rand(10) range #1");
-cmp_ok(get_avg_rand(10, $iterations), "<", "5.5", "rand(10) range #2");
+# rand(10) test
+$num = get_avg_rand(10, $iterations);
+ok($num > 4.5 && $num < 5.5, "rand(10)") or diag("$num not between 4.5 and 5.5");;
 
 ###################################################################
-# Logic: generate a bunch of randoms and calculate the average
-# to see if we fall in a logical threshold
 ###################################################################
 
-# Average should be about 2**31
-cmp_ok(get_avg_randX(32, $iterations), '>', 2**30, "rand32() generates the right size numbers");
-cmp_ok(get_avg_randX(32, $iterations), '<', 2**32, "rand32() generates the right size numbers");
+# _rand32() average should be about 2**31
+$num = get_avg_randX(32, $iterations);
+ok($num > 2**30 && $num < 2**32, "rand32() generates the right size numbers") or diag("rand32(): $num not in range");
 
 # Only do the 64bit tests on platforms that support it
 if ($has_64bit) {
-	# Average should be about 2**63
-	cmp_ok(get_avg_randX(64, $iterations), '>', 2**62, "rand64() generates the right size numbers");
-	cmp_ok(get_avg_randX(64, $iterations), '<', 2**64, "rand64() generates the right size numbers");
+	# _rand64() average should be about 2**63
+	$num = get_avg_randX(64, $iterations);
+	ok($num > 2**62 && $num < 2**64, "rand64() generates the right size numbers") or diag("rand664(): $num not in range");
 } else {
 	diag("Skipping 64bit tests on 32bit platform");
 }
@@ -91,8 +114,8 @@ if ($has_64bit) {
 ###################################################################
 
 # Statisically this should be right around 0.5
-cmp_ok(get_avg_random_float($iterations), '>', 0.45, "random_float() generates the right size numbers");
-cmp_ok(get_avg_random_float($iterations), '<', 0.55, "random_float() generates the right size numbers");
+$num = get_avg_random_float($iterations);
+ok($num > 0.45 && $num < 0.55, "random_float() gerenates the right size numbers") or diag("$num not between 0.45 and 0.55");
 
 ###################################################################
 
