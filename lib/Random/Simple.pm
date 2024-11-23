@@ -91,6 +91,10 @@ sub seed_with_os_random {
 	my $bytes = os_random_bytes(16);
 	my @parts = str_split($bytes, 4);
 
+	if (length($bytes) != 16) {
+		die("Did not get enough entropy bytes from OS\n");
+	}
+
 	# Build the first 64bit seed manually
 	# Cannot use Q because it doesn't exist on 32bit Perls
 	$high  = unpack("L", $parts[0]);
