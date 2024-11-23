@@ -84,6 +84,13 @@ sub str_split {
 	return @ret;
 }
 
+sub bin2hex {
+	my $bytes = shift();
+	my $ret   = (unpack("h* ", $bytes));
+
+	return $ret;
+}
+
 # Randomly seed the PRNG and warmup
 sub seed_with_os_random {
 	my ($high, $low, $seed1, $seed2);
@@ -93,6 +100,15 @@ sub seed_with_os_random {
 
 	if (length($bytes) != 16) {
 		die("Did not get enough entropy bytes from OS\n");
+	}
+
+	if ($debug) {
+		print "Seed parts: ";
+		foreach my $x (@parts) {
+			my $str = bin2hex($x);
+			print "0x$str ";
+		}
+		print "\n";
 	}
 
 	# Build the first 64bit seed manually
