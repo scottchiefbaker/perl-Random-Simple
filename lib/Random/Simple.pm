@@ -203,6 +203,20 @@ To make generating random numbers as easy as possible I<and> in a manner that
 you can use in real code. Generate "good" random numbers without having to
 think about it.
 
+=head2 Functions
+
+=head4 random_int($min, $max)
+
+returns a non-biased integer between C<$min> and C<$max> (inclusive). Range must be no larger than 2**32 - 2.
+
+=head4 random_float()
+
+returns a random floating point value between 0 and 1 (inclusive).
+
+=head4 random_bytes($number)
+
+returns a string of random bytes with length of C<$number>.
+
 =head2 Usage
 
 	use Random::Simple;
