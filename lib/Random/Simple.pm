@@ -219,18 +219,15 @@ returns a string of random bytes with length of C<$number>.
 
 =head2 Usage
 
-	use Random::Simple;
+    use Random::Simple;
 
-	my $integer = random_int($min, $max); # inclusive
-	my $float   = random_float();         # 0 - 1 inclusive
-	my $bytes   = random_bytes($count);   # string of X bytes
+    my $coin_flip      = random_int(1, 2);
+    my $die_roll       = random_int(1, 6);
+    my $random_percent = random_float() * 100;
+    my $buffer         = random_bytes(8);
 
-	my $die_roll       = random_int(1, 6);
-	my $random_percent = random_float() * 100;
-	my $buffer         = random_bytes(8);
-
-	my @arr        = ('red', 'green', 'blue');
-	my $rand_item  = $arr[random_int(0, @arr - 1)]; # Random array item
+    my @arr        = ('red', 'green', 'blue');
+    my $rand_item  = $arr[random_int(0, @arr - 1)]; # Random array item
 
 =head2 Methodology
 
