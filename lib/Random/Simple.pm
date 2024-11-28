@@ -265,7 +265,7 @@ https://github.com/scottchiefbaker/perl-Random-Simple
 
 =head2 Bugs
 
-Submit issues on Github: https://github.com/scottchiefbaker/perl-Date-Parse-Modern/
+Submit issues on Github: https://github.com/scottchiefbaker/perl-Date-Parse-Modern/issues
 
 =head2 Author
 
