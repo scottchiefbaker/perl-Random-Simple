@@ -11,3 +11,4 @@ README
 t/01-general.t
 example.pl
 lib/Random/rand-common.h
+Changes
