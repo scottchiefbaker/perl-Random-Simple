@@ -263,6 +263,10 @@ Math::Random::Secure
 
 https://github.com/scottchiefbaker/perl-Random-Simple
 
+=head2 Bugs
+
+Submit issues on Github: https://github.com/scottchiefbaker/perl-Date-Parse-Modern/
+
 =head2 Author
 
 Scott Baker - https://www.perturb.org/
