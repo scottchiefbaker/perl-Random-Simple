@@ -197,27 +197,7 @@ sub rand(;$) {
 
 Random::Simple - Generate good random numbers in a user consumable way.
 
-=head2 Why Random::Simple?
-
-To make generating random numbers as easy as possible I<and> in a manner that
-you can use in real code. Generate "good" random numbers without having to
-think about it.
-
-=head2 Functions
-
-=head4 random_int($min, $max)
-
-returns a non-biased integer between C<$min> and C<$max> (inclusive). Range must be no larger than 2**32 - 2.
-
-=head4 random_float()
-
-returns a random floating point value between 0 and 1 (inclusive).
-
-=head4 random_bytes($number)
-
-returns a string of random bytes with length of C<$number>.
-
-=head2 Usage
+=head1 SYNOPSIS
 
     use Random::Simple;
 
@@ -229,47 +209,66 @@ returns a string of random bytes with length of C<$number>.
     my @arr        = ('red', 'green', 'blue');
     my $rand_item  = $arr[random_int(0, @arr - 1)]; # Random array item
 
-=head2 Methodology
+=head1 DESCRIPTION
 
 Perl's internal C<rand()> function uses C<drand48> which is an older
 pseudorandom number generator and may have limitations. C<Random::Simple> uses
 PCG which is: modern, simple, well vetted, and fast. Using C<Random::Simple>
-will upgrade/override the C<rand()> function to use a better PRNG.
+will automatically upgrade/override the core C<rand()> function to use a
+better PRNG.
 
 C<Random::Simple> is automatically seeded with entropy directly
 from your OS. On Linux this is C</dev/urandom> and on Windows it uses
 CryptGenRandom. You will get statistically unique random numbers
 automatically.
 
-=head2 See also
+=head1 METHODS
+
+=over 4
+
+=item B<random_int($min, $max)>
+
+returns a non-biased integer between C<$min> and C<$max> (inclusive). Range must be no larger than 2**32 - 2.
+
+=item B<random_float()>
+
+returns a random floating point value between 0 and 1 (inclusive).
+
+=item B<random_bytes($number)>
+
+returns a string of random bytes with length of C<$number>.
+
+=item B<rand()>
+
+emulates C<CORE::rand()> using a better PRNG.
+
+=back
+
+=head1 BUGS
+
+Submit issues on Github: L<https://github.com/scottchiefbaker/perl-Date-Parse-Modern/issues>
+
+=head1 SEE ALSO
 
 =over
 
 =item *
-Math::Random::PCG32
+L<Math::Random::PCG32>
 
 =item *
-Math::Random::ISAAC
+L<Math::Random::ISAAC>
 
 =item *
-Math::Random::MT
+L<Math::Random::MT>
 
 =item *
-Math::Random::Secure
+L<Math::Random::Secure>
 
 =back
 
-=head2 More information
+=head1 AUTHOR
 
-https://github.com/scottchiefbaker/perl-Random-Simple
-
-=head2 Bugs
-
-Submit issues on Github: https://github.com/scottchiefbaker/perl-Date-Parse-Modern/issues
-
-=head2 Author
-
-Scott Baker - https://www.perturb.org/
+Scott Baker - L<https://www.perturb.org/>
 
 =cut
 
