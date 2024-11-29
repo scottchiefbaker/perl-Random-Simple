@@ -27,7 +27,7 @@ sub warmup {
 	my $iter = $_[0];
 
 	for (my $i = 0; $i < $iter; $i++) {
-		_rand64();
+		Random::Simple::_rand64(); # C API
 	}
 }
 
@@ -39,7 +39,7 @@ sub seed {
 		print "SEEDING MANUALLY\n";
 	}
 
-	_seed($seed1, $seed2);
+	Random::Simple::_seed($seed1, $seed2); # C API
 
 	$has_been_seeded = 1;
 }
@@ -127,7 +127,7 @@ sub seed_with_os_random {
 	}
 
 	# Seed the PRNG with the values we just created
-	_seed($seed1, $seed2);
+	Random::Simple::_seed($seed1, $seed2); # C API
 
 	$has_been_seeded = 1;
 
@@ -143,7 +143,7 @@ sub random_bytes {
 
 	my $ret = "";
 	for (my $i = 0; $i < $octets_needed; $i++) {
-		my $num = _rand32();
+		my $num = Random::Simple::_rand32(); # C API
 
 		# Convert the integer into a 4 byte string
 		$ret .= pack("L", $num);
@@ -172,7 +172,7 @@ sub random_float {
 	if (!$has_been_seeded) { seed_with_os_random(); }
 
 	my $max = 2**32 - 1;
-	my $num = Random::Simple::_rand32();
+	my $num = Random::Simple::_rand32(); # C API
 	my $ret = $num / $max;
 
 	#print "$num / $max = $ret\n";
@@ -188,7 +188,7 @@ sub rand(;$) {
 	if (!$has_been_seeded) { seed_with_os_random(); }
 
 	my $max  = 2**32 - 2; # minus 2 so we're NOT inclusive
-	my $rand = Random::Simple::_rand32();
+	my $rand = Random::Simple::_rand32(); # C API
 	my $ret  = $rand / $max;
 
 	$ret = $ret * $mult;
