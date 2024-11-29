@@ -184,9 +184,16 @@ sub random_float {
 # This prototype is required so we can emulate CORE::rand(@array)
 sub rand(;$) {
 	my $mult = shift() || 1;
-	my $num  = random_float() * $mult;
 
-	return $num;
+	if (!$has_been_seeded) { seed_with_os_random(); }
+
+	my $max  = 2**32 - 2; # minus 2 so we're NOT inclusive
+	my $rand = Random::Simple::_rand32();
+	my $ret  = $rand / $max;
+
+	$ret = $ret * $mult;
+
+	return $ret;
 }
 
 #############################################################
