@@ -102,15 +102,6 @@ sub seed_with_os_random {
 		die("Did not get enough entropy bytes from OS\n");
 	}
 
-	if ($debug) {
-		print "Seed parts: ";
-		foreach my $x (@parts) {
-			my $str = bin2hex($x);
-			print "0x$str ";
-		}
-		print "\n";
-	}
-
 	# Build the first 64bit seed manually
 	# Cannot use Q because it doesn't exist on 32bit Perls
 	$high  = unpack("L", $parts[0]);
@@ -123,7 +114,7 @@ sub seed_with_os_random {
 	$seed2 = ($high << 32) | $low;
 
 	if ($debug) {
-		print "SEEDING RANDOMLY: $seed1 / $seed2\n";
+		print "RANDOM SEEDS: $seed1 / $seed2\n\n";
 	}
 
 	# Seed the PRNG with the values we just created
