@@ -1,4 +1,4 @@
-use 5.008005;
+use v5.8.5;
 use ExtUtils::MakeMaker 7.12; # for XSMULTI option
 
 WriteMakefile(
