@@ -10,7 +10,6 @@ WriteMakefile(
 	AUTHOR           => 'Scott Baker <bakerscot@cpan.org>',
 	LICENSE          => 'mit',
 	MIN_PERL_VERSION => '5.012',
-	META_MERGE       => { dynamic_config => 1 },
 
 	PREREQ_PM => {
 		'ExtUtils::MakeMaker' => '7.12',
@@ -24,6 +23,7 @@ WriteMakefile(
 	},
 
 	META_MERGE => {
+		dynamic_config => 1,
 		'meta-spec' => { version => 2 },
 		resources => {
 			repository => {
