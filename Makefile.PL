@@ -14,7 +14,7 @@ WriteMakefile(
 
 	PREREQ_PM => {
 		'ExtUtils::MakeMaker' => '7.12',
-		$^O eq 'MSWin32' ? ('Win32::API' => 0) : (),
+		$^O eq 'MSWin32' ? ('Win32::API' => '0.79') : (),
 	},
 	CONFIGURE_REQUIRES => {
 		'ExtUtils::MakeMaker' => '7.12',
