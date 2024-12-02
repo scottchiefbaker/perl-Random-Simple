@@ -5,7 +5,6 @@ WriteMakefile(
 	NAME             => 'Random::Simple',
 	VERSION_FROM     => 'lib/Random/Simple.pm',
 	ABSTRACT_FROM    => 'lib/Random/Simple.pm',
-	AUTHOR           => 'Scott Baker',
 	XSMULTI          => 1,
 	AUTHOR           => 'Scott Baker <bakerscot@cpan.org>',
 	LICENSE          => 'mit',
