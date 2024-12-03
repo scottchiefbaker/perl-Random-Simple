@@ -244,7 +244,7 @@ emulates C<CORE::rand()> using a better PRNG.
 
 =head1 BUGS
 
-Submit issues on Github: L<https://github.com/scottchiefbaker/perl-Date-Parse-Modern/issues>
+Submit issues on Github: L<https://github.com/scottchiefbaker/perl-Random-Simple/issues>
 
 =head1 SEE ALSO
 
