@@ -1,7 +1,7 @@
 use v5.8.5;
 use ExtUtils::MakeMaker 7.12; # for XSMULTI option
 
-WriteMakefile(
+my %opts = (
 	NAME             => 'Random::Simple',
 	VERSION_FROM     => 'lib/Random/Simple.pm',
 	ABSTRACT_FROM    => 'lib/Random/Simple.pm',
@@ -10,16 +10,9 @@ WriteMakefile(
 	LICENSE          => 'mit',
 	MIN_PERL_VERSION => '5.012',
 
-	PREREQ_PM => {
-		'ExtUtils::MakeMaker' => '7.12',
-		$^O eq 'MSWin32' ? ('Win32::API' => '0.79') : (),
-	},
-	CONFIGURE_REQUIRES => {
-		'ExtUtils::MakeMaker' => '7.12',
-	},
-	TEST_REQUIRES => {
-		'Test::More' => '0',
-	},
+	PREREQ_PM          => { 'ExtUtils::MakeMaker' => '7.12', },
+	CONFIGURE_REQUIRES => { 'ExtUtils::MakeMaker' => '7.12', },
+	TEST_REQUIRES      => { 'Test::More' => '0', },
 
 	META_MERGE => {
 		dynamic_config => 1,
@@ -36,3 +29,12 @@ WriteMakefile(
 		}
 	},
 );
+
+# If you're on Windows you need the Win32 API also
+if ($^O eq 'MSWin32') {
+	$opts{'PREREQ_PM'}{'Win32::API'} = '0.79';
+}
+
+############################################################################
+
+WriteMakefile(%opts);
