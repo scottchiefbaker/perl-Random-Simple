@@ -1,12 +1,12 @@
 package Random::Simple;
 
-our $VERSION = '0.14';
-our $debug   = 0;
-
 use strict;
 use warnings;
 use Time::HiRes;
 use Carp qw(croak);
+
+our $VERSION = '0.14';
+our $debug   = 0;
 
 #############################################################
 
