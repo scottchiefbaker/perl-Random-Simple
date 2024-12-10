@@ -5,7 +5,7 @@ use warnings;
 use Time::HiRes;
 use Carp qw(croak);
 
-our $VERSION = '0.14';
+our $VERSION = '0.15';
 our $debug   = 0;
 
 #############################################################
