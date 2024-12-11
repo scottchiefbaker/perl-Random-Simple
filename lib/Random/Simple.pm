@@ -44,6 +44,9 @@ sub seed {
 	$has_been_seeded = 1;
 }
 
+# Fetch random bytes from the OS supplied method
+# /dev/urandom = Linux, Unix, FreeBSD, Mac, Android
+# Windows requires the Win32::API call to call CryptGenRandom()
 sub os_random_bytes {
 	my $count  = shift();
 	my $ret    = "";
@@ -84,6 +87,7 @@ sub str_split {
 	return @ret;
 }
 
+# Binary to hex for human readability
 sub bin2hex {
 	my $bytes = shift();
 	my $ret   = (unpack("h* ", $bytes));
@@ -95,6 +99,10 @@ sub bin2hex {
 sub seed_with_os_random {
 	my ($high, $low, $seed1, $seed2);
 
+	# PCG needs to be seeded with 2x 64bit unsigned integers
+	# We fetch 16 bytes from the OS to create the two seeds numbers
+	# we need for proper seeding
+
 	my $bytes = os_random_bytes(16);
 	my @parts = str_split($bytes, 4);
 
@@ -102,7 +110,7 @@ sub seed_with_os_random {
 		die("Did not get enough entropy bytes from OS\n");
 	}
 
-	# Build the first 64bit seed manually
+	# Build the first 64bit seed from the random bytes
 	# Cannot use Q because it doesn't exist on 32bit Perls
 	$high  = unpack("L", $parts[0]);
 	$low   = unpack("L", $parts[1]);
@@ -125,6 +133,11 @@ sub seed_with_os_random {
 	warmup(1024);
 }
 
+######################################################################
+# Below are the public user callable methods
+######################################################################
+
+# Get a string of random bytes
 sub random_bytes {
 	my $num = shift();
 
@@ -145,6 +158,8 @@ sub random_bytes {
 	return $ret;
 }
 
+# Get a random non-biased integer in a given range (inclusive)
+# Note: Range must be no larger than 2^32 - 2
 sub random_int {
 	my ($min, $max) = @_;
 
@@ -159,6 +174,7 @@ sub random_int {
 	return $ret;
 }
 
+# Get a random float between 0 and 1 inclusive
 sub random_float {
 	if (!$has_been_seeded) { seed_with_os_random(); }
 
@@ -172,6 +188,9 @@ sub random_float {
 }
 
 # Our rand() overrides CORE::rand()
+# This is slightly different than random_float because it returns
+# a number where: 0 <= x < 1
+#
 # This prototype is required so we can emulate CORE::rand(@array)
 sub rand(;$) {
 	my $mult = shift() || 1;
