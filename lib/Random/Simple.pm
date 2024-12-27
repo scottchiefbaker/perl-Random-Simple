@@ -78,7 +78,8 @@ sub seed_with_os_random {
 	my @parts = str_split($bytes, 4);
 
 	if (length($bytes) != 16) {
-		die("Did not get enough entropy bytes from OS\n");
+		my $size = length($bytes);
+		die("Did not get enough entropy bytes from OS (got $size bytes)\n");
 	}
 
 	# Build the first 64bit seed from the random bytes
