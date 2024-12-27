@@ -26,6 +26,9 @@
 
 // Fill a buffer with random bytes
 int32_t _get_os_random_bytes(uint8_t* buf, uint16_t num) {
+	// Init buffer to all zeros
+	memset(buf, '\0', num);
+
 	// Use BCryptGenRandom on Windows
 	int status = BCryptGenRandom(NULL, (PUCHAR)buf, num, BCRYPT_USE_SYSTEM_PREFERRED_RNG);
 
