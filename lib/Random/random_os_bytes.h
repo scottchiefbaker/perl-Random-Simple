@@ -48,7 +48,7 @@ uint64_t _get_os_rand64() {
 /*#include <fcntl.h>*/
 /*#include <unistd.h>*/
 
-int32_t _get_os_random_bytes(char* buffer, uint16_t num) {
+int32_t _get_os_random_bytes(uint8_t* buffer, uint16_t num) {
 	// printf("Reading %i bytes from /dev/urandom\n", num);
 
 	// If num is 0 or buffer is NULL, return an error code
