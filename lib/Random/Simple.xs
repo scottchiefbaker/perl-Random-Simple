@@ -39,18 +39,21 @@ void _seed(UV seed1, UV seed2)
 
 U32 _bounded_rand(UV range)
 
-const char * _get_os_random_bytes(U16 num)
+void _get_os_random_bytes(U16 num)
 	// Read random bytes from OS level PRNG
 	// Either: /dev/random or BCryptGenRandom on Windows
 	CODE:
 		// We build a small buffer and fill it with bytes
-		char buf[num + 1];
+		uint8_t buf[num];
 		int bytes = _get_os_random_bytes(buf, num);
 
 		// Return a null string on error
-		if (bytes != num) { buf[0] = 0; }
+		if (bytes != num) {
+			memset(buf, '\0', num);
+		}
 
-		RETVAL = buf;
+		SV *result = newSVpv((const uint8_t *)buf, num);
 
-	OUTPUT:
-		RETVAL
+        // Return the Perl string
+        ST(0) = result;
+        XSRETURN(1);
