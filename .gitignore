@@ -11,3 +11,5 @@ lib/Random/Simple.c
 lib/Random/Simple.o
 pm_to_blib
 MYMETA.*
+lib/Random/Simple.def
+none/
