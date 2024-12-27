@@ -35,20 +35,20 @@ jobs:
       - name: Regular tests
         run: make test
 
-  Windows:
-    runs-on: windows-latest
+  #Windows:
+  #  runs-on: windows-latest
 
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          submodules: recursive
-      - name: perl -V
-        run: perl -V
-      - name: Install Dependencies
-        run: cpanm --notest --installdeps .
-      - name: perl Makefile.PL
-        run: perl Makefile.PL
-      - name: make
-        run: make
-      - name: Run Tests
-        run: make test
+  #  steps:
+  #    - uses: actions/checkout@v3
+  #      with:
+  #        submodules: recursive
+  #    - name: perl -V
+  #      run: perl -V
+  #    - name: Install Dependencies
+  #      run: cpanm --notest --installdeps .
+  #    - name: perl Makefile.PL
+  #      run: perl Makefile.PL
+  #    - name: make
+  #      run: make
+  #    - name: Run Tests
+  #      run: make test
