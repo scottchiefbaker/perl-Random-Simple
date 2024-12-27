@@ -19,7 +19,7 @@ int32_t _get_os_random_bytes(char* buf, uint16_t num) {
 	int status = BCryptGenRandom(NULL, (PUCHAR)&buf, num, BCRYPT_USE_SYSTEM_PREFERRED_RNG);
 
 	if (status != 0) {
-		return -1
+		return -1;
 	}
 
 	return num;
