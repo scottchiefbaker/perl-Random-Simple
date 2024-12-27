@@ -34,6 +34,10 @@ if (!$ok || !$ok2) {
 	diag("First ten bytes: $str");
 }
 
+$bytes = Random::Simple::_get_os_random_bytes(8); # C API
+$ok    = ok(substr($bytes, 0, 4) ne "\0\0\0\0", "First four OS bytes are NOT zero");
+$ok    = ok(substr($bytes, 4, 4) ne "\0\0\0\0", "Second four OS bytes are NOT zero");
+
 # Test integer range that's positive
 $num = get_avg_random_int($min, $max, $iterations);
 ok($num >= $min && $num <= $max, "Random int between $min and $max") or diag("$num not between $min and $max");
