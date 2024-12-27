@@ -26,9 +26,10 @@ my $iterations = 10000;
 # bytes will be zero. With a seed of (0,0) you can see this
 #Random::Simple::seed(0,0); # Uncomment this to see the failure
 my $bytes = random_bytes(10);
-my $ok    = ok(substr($bytes, 0, 4) ne "\0\0\0\0", "First four bytes are NOT zero");
+my $ok    = ok(substr($bytes, 0, 4) ne "\0\0\0\0", "First four random bytes are NOT zero");
+my $ok2   = ok(substr($bytes, 4, 4) ne "\0\0\0\0", "Second four random bytes are NOT zero");
 
-if (!$ok) {
+if (!$ok || !$ok2) {
 	my $str = sprintf('%v02X', $bytes);
 	diag("First ten bytes: $str");
 }
