@@ -25,7 +25,7 @@
 #pragma comment(lib, "bcrypt.lib")
 
 // Fill a buffer with random bytes
-int32_t _get_os_random_bytes(char* buf, uint16_t num) {
+int32_t _get_os_random_bytes(uint8_t* buf, uint16_t num) {
 	// Use BCryptGenRandom on Windows
 	int status = BCryptGenRandom(NULL, (PUCHAR)buf, num, BCRYPT_USE_SYSTEM_PREFERRED_RNG);
 
