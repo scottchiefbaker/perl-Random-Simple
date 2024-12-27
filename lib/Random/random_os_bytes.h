@@ -33,7 +33,7 @@ uint64_t _get_os_rand64() {
 	int status = BCryptGenRandom(NULL, (PUCHAR)&randomValue, sizeof(randomValue), BCRYPT_USE_SYSTEM_PREFERRED_RNG);
 	if (status != 0) {
 		printf("Error: status of BCryptGenRandom is non-zero");
-		exit(3);
+		return 0;
 	}
 
 	return randomValue;
