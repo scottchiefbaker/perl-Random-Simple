@@ -71,7 +71,7 @@ sub seed_with_os_random {
 	my ($high, $low, $seed1, $seed2);
 
 	# PCG needs to be seeded with 2x 64bit unsigned integers
-	# We fetch 16 bytes from the OS to create the two seeds numbers
+	# We fetch 16 bytes from the OS to create the two seeds
 	# we need for proper seeding
 
 	my $bytes = _get_os_random_bytes(16); # C API
