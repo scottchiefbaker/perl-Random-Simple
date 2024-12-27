@@ -97,6 +97,10 @@ sub seed_with_os_random {
 		print "RANDOM SEEDS: $seed1 / $seed2\n\n";
 	}
 
+	if ($seed1 == 0 && $seed2 == 0) {
+		die("ERROR: Seeding from OS failed. Both zero? #91393\n");
+	}
+
 	# Seed the PRNG with the values we just created
 	Random::Simple::_seed($seed1, $seed2); # C API
 
