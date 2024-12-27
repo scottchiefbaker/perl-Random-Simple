@@ -1,9 +1,10 @@
-#define PERL_NO_GET_CONTEXT // we'll define thread context if necessary (faster)
-#include "EXTERN.h"         // globals/constant import locations
-#include "perl.h"           // Perl symbols, structures and constants definition
-#include "XSUB.h"           // xsubpp functions and macros
-#include <stdlib.h>         // rand()
-#include <stdint.h>         // uint64_t
+#define PERL_NO_GET_CONTEXT  // we'll define thread context if necessary (faster)
+#include "EXTERN.h"          // globals/constant import locations
+#include "perl.h"            // Perl symbols, structures and constants definition
+#include "XSUB.h"            // xsubpp functions and macros
+#include <stdlib.h>          // rand()
+#include <stdint.h>          // uint64_t
+#include "random_os_bytes.h" // for _get_os_rand64()
 
 #include "pcg.h"
 
@@ -31,6 +32,8 @@ PROTOTYPES: ENABLE
 U32 _rand32()
 
 UV _rand64()
+
+UV _get_os_rand64()
 
 void _seed(UV seed1, UV seed2)
 
