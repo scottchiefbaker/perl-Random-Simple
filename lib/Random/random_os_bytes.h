@@ -2,9 +2,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-//////////////////////
-// Win32
-//////////////////////
+// We define two functions here: _get_os_random_bytes() and _get_os_rand64()
+//
+// These functions fetch random data from the OS CSRNG that is suitable for using
+// as seeds for our PRNGs.
+//
+// Using ifdefs these functions operate differently on Windows vs other operating
+// systems. On Windows we use the BCryptGenRandom function available starting in
+// Windows Vista. If you are on something older than that you are out of luck
+//
+// Linux/Mac/BSD read from /dev/urandom
+
+///////////
+// Win32 //
+///////////
 
 #ifdef _WIN32
 #include <windows.h>
@@ -42,7 +53,7 @@ uint64_t _get_os_rand64() {
 #else
 
 //////////////////////////////////////////////
-// Linux/BSD/Mac anything with /dev/urandom
+// Linux/BSD/Mac anything with /dev/urandom //
 //////////////////////////////////////////////
 
 /*#include <fcntl.h>*/
