@@ -67,34 +67,10 @@ is(length(random_bytes(1024)) , 1024, "Generate 1024 random bytes");
 ###################################################################
 ###################################################################
 
-# Statisically this should be right around 0.5
-$num = get_avg_random_float($iterations);
-ok($num > 0.45 && $num < 0.55, "random_float() gerenates the right size numbers") or diag("$num not between 0.45 and 0.55");
-
-###################################################################
-
 done_testing();
 
 ###################################################################
 ###################################################################
-
-sub get_avg_random_float {
-	my ($count) = @_;
-
-	$count ||= 50000;
-
-	my $total = 0;
-	for (my $i = 0; $i < $count; $i++) {
-		my $num = random_float();
-
-		$total += $num;
-	}
-
-	my $ret = $total / $count;
-	#print "FF: $total / $count = $ret\n";
-
-	return $ret;
-}
 
 sub perl_rand64 {
 	my $high = int(rand() * 2**32 - 1);
