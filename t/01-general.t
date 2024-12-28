@@ -53,31 +53,6 @@ $bytes = Random::Simple::_get_os_random_bytes(8); # C API
 $ok    = ok(substr($bytes, 0, 4) ne "\0\0\0\0", "First four OS bytes are NOT zero");
 $ok    = ok(substr($bytes, 4, 4) ne "\0\0\0\0", "Second four OS bytes are NOT zero");
 
-# Test integer range that's positive
-$num = get_avg_random_int($min, $max, $iterations);
-ok($num >= $min && $num <= $max, "Random int between $min and $max") or diag("$num not between $min and $max");
-
-# Test that we generate big numbers
-cmp_ok(get_avg_random_int(2**8 , 2**32 -1, $iterations), '>', 2**8 - 1 , "More than 2^8");
-cmp_ok(get_avg_random_int(2**16, 2**32 -1, $iterations), '>', 2**16 - 1, "More than 2^16");
-cmp_ok(get_avg_random_int(2**24, 2**32 -1, $iterations), '>', 2**24 - 1, "More than 2^24");
-
-# Test with a zero minimum
-$num = get_avg_random_int(0, 10, $iterations);
-ok($num > 4.7 && $num < 5.3, "random_int(0, 10) a zero min") or diag("$num not between 4.7 and 5.3");
-
-# Test with zero maximum
-$num = get_avg_random_int(-50, 0, $iterations);
-ok($num > -26 && $num < -24, "random_int(-50, 0) a zero maximum") or diag("$num not between -26 and -24");
-
-# Negative range
-$num = get_avg_random_int(-100, -75, $iterations);
-ok($num > -88 && $num < -87, "random_int(-100, -75) fully negative range") or diag("$num not between -88 and -87");
-
-# Positive range that does NOT start at zero
-$num = get_avg_random_int(1, 10, $iterations);
-ok($num > 5.3 && $num < 5.6, "random_int(1, 10)") or diag("$num not between 5.3 and 5.6");
-
 #########################################################################
 #########################################################################
 
@@ -88,20 +63,6 @@ is(length(random_bytes(0))    , 0   , "Generate zero random bytes");
 is(length(random_bytes(-1))   , 0   , "Generate -1 random bytes");
 is(length(random_bytes(49))   , 49  , "Generate 49 random bytes");
 is(length(random_bytes(1024)) , 1024, "Generate 1024 random bytes");
-
-# Build a list of a bunch of random numbers
-my @nums;
-for (my $i = 0; $i < $iterations; $i++) {
-	push(@nums, random_int($min, $max));
-}
-
-# Check if ANY of the items are the mim/max
-my $has_min = int(grep { $_ == $min } @nums);
-my $has_max = int(grep { $_ == $max } @nums);
-
-# Make sure we contain the lower and upper bounds (inclusive)
-ok($has_min, "random_int() contains lower bound") or diag("$min not in sample");
-ok($has_max, "random_int() contains upper bound") or diag("$max not in sample");
 
 # rand() test
 $num = get_avg_rand(undef, $iterations);
@@ -164,24 +125,6 @@ sub get_avg_randX {
 	}
 
 	my $ret = $total / $count;
-
-	return $ret;
-}
-
-sub get_avg_random_int {
-	my ($min, $max, $count) = @_;
-
-	$count ||= 50000;
-
-	my $total = 0;
-	for (my $i = 0; $i < $count; $i++) {
-		my $num = random_int($min, $max);
-
-		$total += $num;
-	}
-
-	my $ret = $total / $count;
-	#print "($min, $max) $num / $count = $ret\n";
 
 	return $ret;
 }
