@@ -211,3 +211,12 @@ sub get_avg_rand {
 
 	return $ret;
 }
+
+sub perl_rand64 {
+	my $high = int(rand() * 2**32 - 1);
+	my $low  = int(rand() * 2**32 - 1);
+
+	my $ret = ($high << 32) | $low;
+
+	return $ret;
+}
