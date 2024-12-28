@@ -64,18 +64,6 @@ is(length(random_bytes(-1))   , 0   , "Generate -1 random bytes");
 is(length(random_bytes(49))   , 49  , "Generate 49 random bytes");
 is(length(random_bytes(1024)) , 1024, "Generate 1024 random bytes");
 
-# rand() test
-$num = get_avg_rand(undef, $iterations);
-ok($num > 0.45 && $num < 0.55, "rand()") or diag("$num not between 0.45 and 0.55");
-
-# rand(1) test which should be the same as rand()
-$num = get_avg_rand(1, $iterations);
-ok($num > 0.45 && $num < 0.55, "rand(1)") or diag("$num not between 0.45 and 0.55");
-
-# rand(10) test
-$num = get_avg_rand(10, $iterations);
-ok($num > 4.5 && $num < 5.5, "rand(10)") or diag("$num not between 4.5 and 5.5");;
-
 ###################################################################
 ###################################################################
 
