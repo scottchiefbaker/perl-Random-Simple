@@ -13,7 +13,7 @@
 `make test`
 
 ### Run the tests faster
-`prove -I lib -lv t/0*`
+`prove -I lib -lv t/*.t`
 
 ### Make the .tar.gz
 `make tardist`
