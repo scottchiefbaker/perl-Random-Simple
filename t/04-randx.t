@@ -23,6 +23,16 @@ my $num = 0; # placeholder for re-usable var
 # Number of iterations to use for our average testing
 my $iterations = 10000;
 
+# Use a specific random seed so we can output it via diag for testing later
+my $seed1 = perl_rand64();
+my $seed2 = perl_rand64();
+
+# If we want to recreate tests we can set the seeds manually here:
+#$seed1 = 127;
+#$seed2 = 489;
+Random::Simple::seed($seed1,$seed2);
+diag("Random Seeds: $seed1 / $seed2");
+
 ###################################################################
 ###################################################################
 
@@ -64,6 +74,15 @@ sub get_avg_randX {
 	}
 
 	my $ret = $total / $count;
+
+	return $ret;
+}
+
+sub perl_rand64 {
+	my $high = int(rand() * 2**32 - 1);
+	my $low  = int(rand() * 2**32 - 1);
+
+	my $ret = ($high << 32) | $low;
 
 	return $ret;
 }

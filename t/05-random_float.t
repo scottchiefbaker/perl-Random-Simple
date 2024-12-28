@@ -8,6 +8,19 @@ use Random::Simple;
 use Config;
 use Time::HiRes qw(sleep);
 
+# Use a specific random seed so we can output it via diag for testing later
+my $seed1 = perl_rand64();
+my $seed2 = perl_rand64();
+
+# If we want to recreate tests we can set the seeds manually here:
+#$seed1 = 127;
+#$seed2 = 489;
+Random::Simple::seed($seed1,$seed2);
+diag("Random Seeds: $seed1 / $seed2");
+
+###################################################################
+###################################################################
+
 ########################################################
 # Testing random numbers is hard so we do basic sanity #
 # checking of the bounds                               #
@@ -49,6 +62,15 @@ sub get_avg_random_float {
 
 	my $ret = $total / $count;
 	#print "FF: $total / $count = $ret\n";
+
+	return $ret;
+}
+
+sub perl_rand64 {
+	my $high = int(rand() * 2**32 - 1);
+	my $low  = int(rand() * 2**32 - 1);
+
+	my $ret = ($high << 32) | $low;
 
 	return $ret;
 }
