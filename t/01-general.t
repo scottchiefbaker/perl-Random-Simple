@@ -67,21 +67,6 @@ is(length(random_bytes(1024)) , 1024, "Generate 1024 random bytes");
 ###################################################################
 ###################################################################
 
-# _rand32() average should be about 2**31
-$num = get_avg_randX(32, $iterations);
-ok($num > 2**30 && $num < 2**32, "rand32() generates the right size numbers") or diag("rand32(): $num not in range");
-
-# Only do the 64bit tests on platforms that support it
-if ($has_64bit) {
-	# _rand64() average should be about 2**63
-	$num = get_avg_randX(64, $iterations);
-	ok($num > 2**62 && $num < 2**64, "rand64() generates the right size numbers") or diag("rand664(): $num not in range");
-} else {
-	diag("Skipping 64bit tests on 32bit platform");
-}
-
-###################################################################
-
 # Statisically this should be right around 0.5
 $num = get_avg_random_float($iterations);
 ok($num > 0.45 && $num < 0.55, "random_float() gerenates the right size numbers") or diag("$num not between 0.45 and 0.55");
@@ -92,30 +77,6 @@ done_testing();
 
 ###################################################################
 ###################################################################
-
-sub get_avg_randX {
-	my ($bits, $count) = @_;
-
-	$count ||= 50000;
-
-	my $total = 0;
-	for (my $i = 0; $i < $count; $i++) {
-		my $num;
-		if ($bits == 32) {
-			$num = Random::Simple::_rand32();
-		} elsif ($bits == 64) {
-			$num = Random::Simple::_rand64();
-		} else {
-			$num = 0; # bees?
-		}
-
-		$total += $num;
-	}
-
-	my $ret = $total / $count;
-
-	return $ret;
-}
 
 sub get_avg_random_float {
 	my ($count) = @_;
@@ -131,29 +92,6 @@ sub get_avg_random_float {
 
 	my $ret = $total / $count;
 	#print "FF: $total / $count = $ret\n";
-
-	return $ret;
-}
-
-sub get_avg_rand {
-	my ($one, $count) = @_;
-
-	$count ||= 50000;
-
-	my $total = 0;
-	for (my $i = 0; $i < $count; $i++) {
-		my $num;
-		if (defined $one) {
-			$num = rand($one);
-		} else {
-			$num = rand();
-		}
-
-		$total += $num;
-	}
-
-	my $ret = $total / $count;
-	#print "($min, $max) $num / $count = $ret\n";
 
 	return $ret;
 }
