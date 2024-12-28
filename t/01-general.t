@@ -6,6 +6,7 @@ use warnings;
 use Test::More;
 use Random::Simple;
 use Config;
+use Time::HiRes qw(sleep);
 
 ########################################################
 # Testing random numbers is hard so we do basic sanity #
@@ -33,6 +34,20 @@ if (!$ok || !$ok2) {
 	my $str = sprintf('%v02X', $bytes);
 	diag("First ten bytes: $str");
 }
+
+# Use a specific random seed so we can output it via diag for testing later
+my $seed1 = perl_rand64();
+my $seed2 = perl_rand64();
+
+# If we want to recreate tests we can set the seeds manually here:
+#$seed1 = 127;
+#$seed2 = 489;
+Random::Simple::seed($seed1,$seed2);
+diag("Random Seeds: $seed1 / $seed2");
+sleep(0.03); # Sleep a tiny bit here so the tests output in order
+
+###################################################################################
+###################################################################################
 
 $bytes = Random::Simple::_get_os_random_bytes(8); # C API
 $ok    = ok(substr($bytes, 0, 4) ne "\0\0\0\0", "First four OS bytes are NOT zero");
