@@ -43,7 +43,7 @@ static void _seed(uint64_t seed1, uint64_t seed2) {
 	//printf("One: %lu / %lu\n", one.state, one.inc);
 
 	srand(pcg32_random_r(&one));
-	two.state = crand64();
+	two.state = seed1;
 	two.inc   = crand64();
 
 	//printf("Two: %lu / %lu\n", two.state, two.inc);
