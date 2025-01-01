@@ -30,9 +30,9 @@ my %opts = (
 	},
 );
 
-# If you're on Windows you need the BCryptGenRandom library
+# If you're on Windows you need the Win32 API also
 if ($^O eq 'MSWin32') {
-	push(@{$opts{'LIBS'}}, '-lbcrypt');
+	$opts{'PREREQ_PM'}{'Win32::API'} = '0.79';
 }
 
 ############################################################################

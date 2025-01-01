@@ -45,6 +45,35 @@ sub seed {
 	$has_been_seeded = 1;
 }
 
+# Fetch random bytes from the OS supplied method
+# /dev/urandom = Linux, Unix, FreeBSD, Mac, Android
+# Windows requires the Win32::API call to call CryptGenRandom()
+sub os_random_bytes {
+	my $count  = shift();
+	my $ret    = "";
+
+	if ($^O eq 'MSWin32') {
+		require Win32::API;
+
+		my $rand = Win32::API->new('advapi32', 'INT SystemFunction036(PVOID RandomBuffer, ULONG RandomBufferLength)') or croak("Could not import SystemFunction036: $^E");
+
+		$ret = chr(0) x $count;
+		$rand->Call($ret, $count) or croak("Could not read from csprng: $^E");
+	} elsif (-r "/dev/urandom") {
+		open my $urandom, '<:raw', '/dev/urandom' or croak("Couldn't open /dev/urandom: $!");
+
+		sysread($urandom, $ret, $count) or croak("Couldn't read from csprng: $!");
+	} else {
+		croak("Unknown operating systen $^O");
+	};
+
+	if (length($ret) != $count) {
+		croak("Unable to read $count bytes from OS");
+	}
+
+	return $ret;
+}
+
 # Split a string into an array of smaller length strings
 sub str_split {
     my ($string, $chunk_size) = @_;
@@ -104,7 +133,7 @@ sub seed_with_os_random {
 	# We fetch 16 bytes from the OS to create the two seeds
 	# we need for proper seeding
 
-	my $bytes = _get_os_random_bytes(16); # C API
+	my $bytes = os_random_bytes(16);
 	my @parts = str_split($bytes, 4);
 
 	if (length($bytes) != 16) {
