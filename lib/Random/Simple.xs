@@ -4,7 +4,6 @@
 #include "XSUB.h"            // xsubpp functions and macros
 #include <stdlib.h>          // rand()
 #include <stdint.h>          // uint64_t
-#include "random_os_bytes.h" // for _get_os_rand64()
 
 #include "pcg.h"
 
@@ -33,27 +32,6 @@ U32 _rand32()
 
 UV _rand64()
 
-UV _get_os_rand64()
-
 void _seed(UV seed1, UV seed2)
 
 U32 _bounded_rand(UV range)
-
-void _get_os_random_bytes(U16 num)
-	// Read random bytes from OS level PRNG
-	// Either: /dev/random or BCryptGenRandom on Windows
-	CODE:
-		// We build a small buffer and fill it with bytes
-		uint8_t buf[num];
-		int bytes = _get_os_random_bytes(buf, num);
-
-		// Return a null string on error
-		if (bytes != num) {
-			memset(buf, '\0', num);
-		}
-
-		SV *result = newSVpv((const uint8_t *)buf, num);
-
-        // Return the Perl string
-        ST(0) = result;
-        XSRETURN(1);

@@ -24,16 +24,6 @@ if (!$ok || !$ok2) {
 	diag("First ten bytes: $str");
 }
 
-# C API
-$bytes = Random::Simple::_get_os_random_bytes(16);
-$ok    = ok(substr($bytes, 0, 4) ne "\0\0\0\0", "First  four OS random bytes are NOT zero");
-$ok2   = ok(substr($bytes, 4, 4) ne "\0\0\0\0", "Second four OS random bytes are NOT zero");
-
-if (!$ok || !$ok2) {
-	my $str = sprintf('%v02X', $bytes);
-	diag("First ten bytes: $str");
-}
-
 # Perl API
 $bytes = Random::Simple::_get_os_random_bytes_perl(16);
 $ok    = ok(substr($bytes, 0, 4) ne "\0\0\0\0", "First  four Perl random bytes are NOT zero");
