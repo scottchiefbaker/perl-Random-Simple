@@ -31,6 +31,11 @@ static void _seed(uint64_t seed1, uint64_t seed2) {
 
 	//printf("One: %lu / %lu\n", one.state, one.inc);
 
+	// The second PRNG is only used when we generate
+	// 64 bit integers. We use the seeds for the first
+	// PRNG XORd with nanoseconds to mix them up a
+	// little bit. This should NOT be predictable in
+	// any easy way
 	two.state = seed1 ^ nanos();
 	two.inc   = seed2 ^ nanos();
 
