@@ -18,17 +18,6 @@ static uint32_t pcg32_random_r(pcg32_random_t* rng) {
     return (xorshifted >> rot) | (xorshifted << ((-rot) & 31));
 }
 
-// Get a 64bit random value from the vanilla C rand function
-static uint64_t crand64() {
-	uint64_t high = rand();
-	uint64_t low  = rand();
-
-	uint64_t ret = (high << 32) | low;
-
-	return ret;
-}
-
-
 ///////////////////////////////////////////////////////////////////////////
 // Public methods
 ///////////////////////////////////////////////////////////////////////////
@@ -40,13 +29,12 @@ static void _seed(uint64_t seed1, uint64_t seed2) {
 	one.state = seed1;
 	one.inc   = seed2;
 
-	//printf("One: %lu / %lu\n", one.state, one.inc);
+	printf("One: %lu / %lu\n", one.state, one.inc);
 
-	srand(pcg32_random_r(&one));
-	two.state = seed1;
-	two.inc   = crand64();
+	two.state = seed1 ^ nanos();
+	two.inc   = seed2 ^ nanos();
 
-	//printf("Two: %lu / %lu\n", two.state, two.inc);
+	printf("Two: %lu / %lu\n", two.state, two.inc);
 }
 
 static uint64_t _rand64() {
