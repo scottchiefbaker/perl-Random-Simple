@@ -29,12 +29,12 @@ static void _seed(uint64_t seed1, uint64_t seed2) {
 	one.state = seed1;
 	one.inc   = seed2;
 
-	printf("One: %lu / %lu\n", one.state, one.inc);
+	//printf("One: %lu / %lu\n", one.state, one.inc);
 
 	two.state = seed1 ^ nanos();
 	two.inc   = seed2 ^ nanos();
 
-	printf("Two: %lu / %lu\n", two.state, two.inc);
+	//printf("Two: %lu / %lu\n", two.state, two.inc);
 }
 
 static uint64_t _rand64() {
