@@ -31,6 +31,8 @@ U32 _rand32()
 
 UV _rand64()
 
+UV _hash64(UV seed1, I8 bits)
+
 void _seed(UV seed1, UV seed2)
 
 U32 _bounded_rand(UV range)
