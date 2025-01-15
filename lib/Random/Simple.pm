@@ -16,7 +16,7 @@ require XSLoader;
 XSLoader::load();
 
 use Exporter 'import';
-our @EXPORT = qw(random_int random_bytes random_float random_elem rand);
+our @EXPORT = qw(random_int random_bytes random_float random_elem rand srand);
 
 #############################################################
 
@@ -242,6 +242,24 @@ sub perl_rand64 {
 	my $ret = ($high << 32) | $low;
 
 	return $ret;
+}
+
+# Our srand() overrides CORE::srand()
+sub srand {
+	my $seed = int($_[0] || 0);
+	my ($seed1, $seed2);
+
+	# Convert the one 32bit seed into 2x 64bit seeds
+	if ($seed) {
+		$seed1 = _hash64($seed , 64); # C API
+		$seed2 = _hash64($seed1, 64); # C API
+	# No seed given so we generate two random seeds
+	} else {
+		$seed1 = perl_rand64();
+		$seed2 = perl_rand64();
+	}
+
+	Random::Simple::seed($seed1, $seed2);
 }
 
 # Our rand() overrides CORE::rand()
