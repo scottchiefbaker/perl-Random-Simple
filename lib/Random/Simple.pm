@@ -296,10 +296,11 @@ emulates C<CORE::rand()> using a better PRNG.
 
 =item B<Random::Simple::seed($seed1, $seed2)>
 
-Seed the PRNG with two 64bit integers for predictable and repeatable random
-numbers. C<Random::Simple> will automatically seed itself from your operating
-system's randomness. This should only be used in specific cases where you
-need repeatable or testable randomness.
+Seed the PRNG with two unsigned 64bit integers for predictable and repeatable
+random numbers. C<Random::Simple> will automatically seed itself from your
+operating system's randomness if not manually seeded. Manual seeding should
+only be used in specific cases where you need repeatable or testable
+randomness.
 
 =back
 
