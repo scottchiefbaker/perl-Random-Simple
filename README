@@ -45,6 +45,21 @@ automatically.
 
     emulates `CORE::rand()` using a better PRNG.
 
+- **Random::Simple::seed($seed1, $seed2)**
+
+    Seed the PRNG with two 64bit integers for predictable and repeatable random
+    numbers. `Random::Simple` will automatically seed itself from your operating
+    system's randomness. This should only be used in specific cases where you
+    need repeatable or testable randomness.
+
+# CAVEATS
+
+PCG uses two 64bit unsigned integers for seeding. High quality seeds are needed
+to generate good random numbers. `Random::Simple` automatically generates high
+quality seeds by reading random bytes from your operating system and converting
+appropriately. If you manually seed `Random::Simple`, then make sure you use
+good seeds that are mostly non-zero.
+
 # BUGS
 
 Submit issues on Github: [https://github.com/scottchiefbaker/perl-Random-Simple/issues](https://github.com/scottchiefbaker/perl-Random-Simple/issues)
