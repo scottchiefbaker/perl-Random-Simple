@@ -222,6 +222,15 @@ sub random_float {
 	return $ret;
 }
 
+sub perl_rand64 {
+	my $high = rand() * 4294967295;
+	my $low  = rand() * 4294967295;
+
+	my $ret = ($high << 32) | $low;
+
+	return $ret;
+}
+
 # Our rand() overrides CORE::rand()
 # This is slightly different than random_float because it returns
 # a number where: 0 <= x < 1
