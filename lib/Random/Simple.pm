@@ -16,7 +16,7 @@ require XSLoader;
 XSLoader::load();
 
 use Exporter 'import';
-our @EXPORT = qw(random_int random_bytes random_float rand);
+our @EXPORT = qw(random_int random_bytes random_float random_elem rand);
 
 #############################################################
 
@@ -222,6 +222,19 @@ sub random_float {
 	return $ret;
 }
 
+# Pick a random element from an array
+sub random_elem {
+	if (!$has_been_seeded) { seed_with_os_random(); }
+
+	my @arr = @_;
+
+	my $elem_count = scalar(@arr) - 1;
+	my $idx        = random_int(0, $elem_count);
+	my $ret        = $arr[$idx];
+
+	return $ret;
+}
+
 sub perl_rand64 {
 	my $high = rand() * 4294967295;
 	my $low  = rand() * 4294967295;
@@ -298,6 +311,10 @@ returns a random floating point value between 0 and 1 (inclusive).
 =item B<random_bytes($number)>
 
 returns a string of random bytes with length of C<$number>.
+
+=item B<random_elem(@array)>
+
+returns a random element from C<@array>
 
 =item B<rand()>
 

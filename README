@@ -41,6 +41,10 @@ automatically.
 
     returns a string of random bytes with length of `$number`.
 
+- **random\_elem(@array)**
+
+    returns a random element from `@array`
+
 - **rand()**
 
     emulates `CORE::rand()` using a better PRNG.
