@@ -4,7 +4,6 @@
 #include "XSUB.h"            // xsubpp functions and macros
 #include <stdlib.h>          // rand()
 #include <stdint.h>          // uint64_t
-#include "time-common.h"     // for nanos()
 
 #include "pcg.h"
 
