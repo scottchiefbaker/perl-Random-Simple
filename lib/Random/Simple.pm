@@ -37,7 +37,7 @@ sub seed {
 	my ($seed1, $seed2) = @_;
 
 	if ($debug) {
-		print "SEEDING MANUALLY\n";
+		print "SEEDING MANUALLY ($seed1, $seed2)\n";
 	}
 
 	Random::Simple::_seed($seed1, $seed2); # C API
