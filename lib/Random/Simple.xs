@@ -4,6 +4,7 @@
 #include "XSUB.h"            // xsubpp functions and macros
 #include <stdlib.h>          // rand()
 #include <stdint.h>          // uint64_t
+#include "rand-common.h"
 
 #include "pcg.h"
 
@@ -14,8 +15,6 @@
 //
 // Other PRGNs just need three functions _seed(S1,S2), _rand32(),
 // and _rand64()
-
-#include "rand-common.h"
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
