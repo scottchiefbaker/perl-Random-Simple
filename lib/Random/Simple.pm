@@ -294,6 +294,13 @@ returns a string of random bytes with length of C<$number>.
 
 emulates C<CORE::rand()> using a better PRNG.
 
+=item B<Random::Simple::seed($seed1, $seed2)>
+
+Seed the PRNG with two 64bit integers for predictable and repeatable random
+numbers. C<Random::Simple> will automatically seed itself from your operating
+system's randomness. This should only be used in specific cases where you
+need repeatable or testable randomness.
+
 =back
 
 =head1 BUGS
