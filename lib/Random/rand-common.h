@@ -25,7 +25,7 @@ static uint32_t _bounded_rand(uint32_t range) {
 }
 
 // Use the C rand() function to return a 64 bit number
-static uint64_t crand64() {
+static uint64_t _crand64() {
 	uint64_t high = rand();
 	uint32_t low  = rand();
 	uint64_t ret  = (high << 32) | low;
