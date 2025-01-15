@@ -1,3 +1,7 @@
+0.18 2025-01-15
+	- Drop `nanos()` for seeding because it isn't well supported on Windows
+	- Document how to manually seed the PRNG
+
 0.17 2025-01-12
 	- Add back in the unit tests
 
