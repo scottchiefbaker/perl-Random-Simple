@@ -332,7 +332,7 @@ returns a string of random bytes with length of C<$number>.
 
 =item B<random_elem(@array)>
 
-returns a random element from C<@array>
+returns a random element from C<@array>.
 
 =item B<srand()>
 
