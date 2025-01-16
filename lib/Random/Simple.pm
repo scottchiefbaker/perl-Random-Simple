@@ -356,8 +356,11 @@ randomness.
 PCG uses two 64bit unsigned integers for seeding. High quality seeds are needed
 to generate good random numbers. C<Random::Simple> automatically generates high
 quality seeds by reading random bytes from your operating system and converting
-appropriately. If you manually seed C<Random::Simple>, then make sure you use
-good seeds that are mostly non-zero.
+appropriately.
+
+If you manually seed C<Random::Simple>, then make sure you use good seeds that
+are mostly non-zero. The larger the number the better seed it will make. A good
+seed is a decimal number with 18 or 19 digits.
 
 =head1 BUGS
 
