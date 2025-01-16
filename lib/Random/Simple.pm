@@ -298,8 +298,8 @@ Random::Simple - Generate good random numbers in a user consumable way.
     my $random_percent = random_float() * 100;
     my $buffer         = random_bytes(8);
 
-    my @arr        = ('red', 'green', 'blue');
-    my $rand_item  = $arr[random_int(0, @arr - 1)]; # Random array item
+    my @arr            = ('red', 'green', 'blue');
+    my $rand_item      = random_elem(@arr);
 
 =head1 DESCRIPTION
 
