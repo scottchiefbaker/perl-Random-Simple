@@ -43,7 +43,7 @@ automatically.
 
 - **random\_elem(@array)**
 
-    returns a random element from `@array`
+    returns a random element from `@array`.
 
 - **srand()**
 
