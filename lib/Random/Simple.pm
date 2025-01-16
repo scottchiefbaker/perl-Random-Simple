@@ -249,7 +249,7 @@ sub srand {
 	my $seed = int($_[0] || 0);
 
 	if ($seed == 0) {
-		$seed = rand() * 4294967295; # Random 32bit int
+		$seed = int(rand() * 4294967295); # Random 32bit int
 	}
 
 	# Convert the one 32bit seed into 2x 64bit seeds
