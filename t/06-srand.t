@@ -12,8 +12,6 @@ use Time::HiRes qw(sleep);
 my $seed      = perl_rand32();
 my $srand_ret = srand($seed);
 
-diag("Random srand() seed: $seed");
-
 my $rseed = srand();
 cmp_ok(srand()       , '>' , 0          , "srand() returns the seed");
 cmp_ok(srand(123.456), '==', 123        , "srand() with a float returns the int");
