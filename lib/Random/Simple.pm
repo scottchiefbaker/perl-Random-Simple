@@ -260,6 +260,8 @@ sub srand {
 	}
 
 	Random::Simple::seed($seed1, $seed2);
+
+	return $seed;
 }
 
 # Our rand() overrides CORE::rand()
