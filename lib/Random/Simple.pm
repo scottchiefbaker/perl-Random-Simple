@@ -334,6 +334,10 @@ returns a string of random bytes with length of C<$number>.
 
 returns a random element from C<@array>
 
+=item B<srand()>
+
+emulates C<CORE::srand()> using a better PRNG.
+
 =item B<rand()>
 
 emulates C<CORE::rand()> using a better PRNG.
