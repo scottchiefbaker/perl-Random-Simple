@@ -28,7 +28,7 @@ better PRNG.
 from your OS. On Linux this is `/dev/urandom` and on Windows it uses
 CryptGenRandom.
 
-When you \`use Random::Simple\` we automatically upgrade \`rand()\` and \`srand()\`
+When you `use Random::Simple` we automatically upgrade `rand()` and `srand()`
 to use a modern PRNG with better statistical properties. As a bonus you also
 get a handful of other useful random related methods.
 
