@@ -33,7 +33,12 @@ static uint64_t _crand64() {
 	return ret;
 }
 
-// Borrowed from: https://elixir.bootlin.com/linux/v6.11.5/source/include/linux/hash.h
-static inline uint64_t _hash64(uint64_t val, uint8_t bits) {
-    return (val * 0x61c8864680b583ebull) >> (64 - bits);
+// MurmurHash3 Finalizer (Passes SmallCrush)
+static uint64_t _hash_mur3(uint64_t x) {
+    x ^= x >> 33;
+    x *= 0xff51afd7ed558ccd;
+    x ^= x >> 33;
+    x *= 0xc4ceb9fe1a85ec53;
+    x ^= x >> 33;
+    return x;
 }

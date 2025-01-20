@@ -31,7 +31,7 @@ U32 _rand32()
 
 UV _rand64()
 
-UV _hash64(UV seed1, I8 bits)
+UV _hash_mur3(UV seed1)
 
 void _seed(UV seed1, UV seed2)
 

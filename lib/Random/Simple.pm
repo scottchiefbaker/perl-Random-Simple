@@ -253,8 +253,8 @@ sub srand {
 	}
 
 	# Convert the one 32bit seed into 2x 64bit seeds
-	my $seed1 = _hash64($seed , 64); # C API
-	my $seed2 = _hash64($seed1, 64); # C API
+	my $seed1 = _hash_mur3($seed);  # C API
+	my $seed2 = _hash_mur3($seed1); # C API
 
 	Random::Simple::seed($seed1, $seed2);
 
