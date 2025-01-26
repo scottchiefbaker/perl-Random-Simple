@@ -213,11 +213,8 @@ sub random_int {
 sub random_float {
 	if (!$has_been_seeded) { seed_with_os_random(); }
 
-	my $max = 2**32 - 1;
-	my $num = Random::Simple::_rand32(); # C API
-	my $ret = $num / $max;
-
-	#print "$num / $max = $ret\n";
+	my $num = Random::Simple::_rand64();
+	my $ret = Random::Simple::_uint64_to_double($num);
 
 	return $ret;
 }
