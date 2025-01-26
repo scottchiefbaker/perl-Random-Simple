@@ -36,3 +36,5 @@ UV _hash_mur3(UV seed1)
 void _seed(UV seed1, UV seed2)
 
 U32 _bounded_rand(UV range)
+
+double _uint64_to_double(UV num)
