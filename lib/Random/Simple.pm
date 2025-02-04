@@ -4,10 +4,14 @@ use strict;
 use warnings;
 use Time::HiRes;
 use Carp qw(croak);
+use Config;
 
 # https://pause.perl.org/pause/query?ACTION=pause_operating_model#3_5_factors_considering_in_the_indexing_phase
 our $VERSION = '0.21';
 our $debug   = 0;
+
+# Check if the UV (unsigned value) Perl type is 64bit
+my $has_64bit = ($Config{uvsize} == 8);
 
 #############################################################
 
