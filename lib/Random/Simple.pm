@@ -47,7 +47,7 @@ sub seed {
 
 # Fetch random bytes from the OS supplied method
 # /dev/urandom = Linux, Unix, FreeBSD, Mac, Android
-# Windows requires the Win32::API call to call CryptGenRandom()
+# Windows requires the Win32::API call to call RtlGenRandom()
 sub os_random_bytes {
 	my $count  = shift();
 	my $ret    = "";
@@ -307,7 +307,7 @@ better PRNG.
 
 C<Random::Simple> is automatically seeded with entropy directly
 from your OS. On Linux this is C</dev/urandom> and on Windows it uses
-CryptGenRandom.
+RtlGenRandom.
 
 When you `use Random::Simple` we automatically upgrade `rand()` and `srand()`
 to use a modern PRNG with better statistical properties. As a bonus you also
