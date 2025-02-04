@@ -189,7 +189,14 @@ sub random_float {
 	if (!$has_been_seeded) { seed_with_os_random(); }
 
 	my $num = Random::Simple::_rand64();
-	my $ret = Random::Simple::_uint64_to_double($num);
+	my $ret = 0;
+
+	if ($has_64bit) {
+		$ret = Random::Simple::_uint64_to_double($num);
+	} else {
+		$ret = Random::Simple::_uint32_to_double($num);
+	}
+
 
 	return $ret;
 }
