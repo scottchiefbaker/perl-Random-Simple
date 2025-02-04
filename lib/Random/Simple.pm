@@ -96,35 +96,6 @@ sub bin2hex {
 	return $ret;
 }
 
-# Fetch random bytes from the OS supplied method
-# /dev/urandom = Linux, Unix, FreeBSD, Mac, Android
-# Windows requires the Win32::API call to call CryptGenRandom()
-sub _get_os_random_bytes_perl {
-	my $count  = shift();
-	my $ret    = "";
-
-	if ($^O eq 'MSWin32') {
-		require Win32::API;
-
-		my $rand = Win32::API->new('advapi32', 'INT SystemFunction036(PVOID RandomBuffer, ULONG RandomBufferLength)') or croak("Could not import SystemFunction036: $^E");
-
-		$ret = chr(0) x $count;
-		$rand->Call($ret, $count) or croak("Could not read from csprng: $^E");
-	} elsif (-r "/dev/urandom") {
-		open my $urandom, '<:raw', '/dev/urandom' or croak("Couldn't open /dev/urandom: $!");
-
-		sysread($urandom, $ret, $count) or croak("Couldn't read from csprng: $!");
-	} else {
-		croak("Unknown operating systen $^O");
-	};
-
-	if (length($ret) != $count) {
-		croak("Unable to read $count bytes from OS");
-	}
-
-	return $ret;
-}
-
 # Randomly seed the PRNG and warmup
 sub seed_with_os_random {
 	my ($high, $low, $seed1, $seed2);
