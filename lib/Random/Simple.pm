@@ -280,7 +280,7 @@ C<Random::Simple> is automatically seeded with entropy directly
 from your OS. On Linux this is C</dev/urandom> and on Windows it uses
 RtlGenRandom.
 
-When you `use Random::Simple` we automatically upgrade `rand()` and `srand()`
+When you C<use Random::Simple> we automatically upgrade C<rand()> and C<srand()>
 to use a modern PRNG with better statistical properties. As a bonus you also
 get a handful of other useful random related methods.
 
