@@ -5,6 +5,7 @@ use warnings;
 use Time::HiRes;
 use Carp qw(croak);
 use Config;
+use v5.10; # For state
 
 # https://pause.perl.org/pause/query?ACTION=pause_operating_model#3_5_factors_considering_in_the_indexing_phase
 our $VERSION = '0.22';
@@ -59,7 +60,7 @@ sub os_random_bytes {
 	if ($^O eq 'MSWin32') {
 		require Win32::API;
 
-		my $rand = Win32::API->new('advapi32', 'INT SystemFunction036(PVOID RandomBuffer, ULONG RandomBufferLength)') or croak("Could not import SystemFunction036: $^E");
+		state $rand = Win32::API->new('advapi32', 'INT SystemFunction036(PVOID RandomBuffer, ULONG RandomBufferLength)') or croak("Could not import SystemFunction036: $^E");
 
 		$ret = chr(0) x $count;
 		$rand->Call($ret, $count) or croak("Could not read from csprng: $^E");
