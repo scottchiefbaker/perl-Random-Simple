@@ -68,7 +68,7 @@ sub os_random_bytes {
 
 		sysread($urandom, $ret, $count) or croak("Couldn't read from csprng: $!");
 	} else {
-		croak("Unknown operating systen $^O");
+		croak("Unknown operating system $^O");
 	};
 
 	if (length($ret) != $count) {
