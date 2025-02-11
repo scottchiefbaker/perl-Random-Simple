@@ -60,7 +60,10 @@ sub os_random_bytes {
 	if ($^O eq 'MSWin32') {
 		require Win32::API;
 
-		state $rand = Win32::API->new('advapi32', 'INT SystemFunction036(PVOID RandomBuffer, ULONG RandomBufferLength)') or croak("Could not import SystemFunction036: $^E");
+		state $rand = Win32::API->new(
+			'advapi32',
+			'INT SystemFunction036(PVOID RandomBuffer, ULONG RandomBufferLength)'
+		) or croak("Could not import SystemFunction036: $^E");
 
 		$ret = chr(0) x $count;
 		$rand->Call($ret, $count) or croak("Could not read from csprng: $^E");
