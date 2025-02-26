@@ -50,6 +50,10 @@ get a handful of other useful random related methods.
 
     returns a random element from `@array`.
 
+- **shuffle\_array(@array)**
+
+    returns an array with the elements mixed randomly
+
 - **srand()**
 
     emulates `CORE::srand()` using a better PRNG.

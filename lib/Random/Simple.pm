@@ -21,7 +21,7 @@ require XSLoader;
 XSLoader::load();
 
 use Exporter 'import';
-our @EXPORT = qw(random_int random_bytes random_float random_elem rand srand);
+our @EXPORT = qw(random_int random_bytes random_float random_elem shuffle_array rand srand);
 
 #############################################################
 
@@ -218,6 +218,18 @@ sub random_elem {
 	return $ret;
 }
 
+# Use the Fisher-Yates algo to shuffle an array in a non-biased way
+sub shuffle_array {
+    my @array = @_;
+    my $i = @array;
+    while ($i--) {
+        my $j = random_int(0, $i);
+        @array[$i, $j] = @array[$j, $i];
+    }
+
+	return @array;
+}
+
 sub perl_rand64 {
 	my $high = rand() * 4294967295;
 	my $low  = rand() * 4294967295;
@@ -318,6 +330,10 @@ returns a string of random bytes with length of C<$number>.
 =item B<random_elem(@array)>
 
 returns a random element from C<@array>.
+
+=item B<shuffle_array(@array)>
+
+returns an array with the elements mixed randomly
 
 =item B<srand()>
 
