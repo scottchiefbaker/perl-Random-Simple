@@ -295,6 +295,8 @@ Random::Simple - Generate good random numbers in a user consumable way.
     my @arr            = ('red', 'green', 'blue');
     my $rand_item      = random_elem(@arr);
 
+    my @mixed          = shuffle_array(@arr);
+
 =head1 DESCRIPTION
 
 Perl's internal C<rand()> function uses C<drand48> which is an older

@@ -14,6 +14,8 @@ my $buffer         = random_bytes(8);
 
 my @arr            = ('red', 'green', 'blue');
 my $rand_item      = random_elem(@arr);
+
+my @mixed          = shuffle_array(@arr);
 ```
 
 # DESCRIPTION
