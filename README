@@ -4,9 +4,9 @@ Random::Simple - Generate good random numbers in a user consumable way.
 
 # SYNOPSIS
 
+```perl
 use Random::Simple;
 
-```perl
 my $coin_flip      = random_int(1, 2);
 my $die_roll       = random_int(1, 6);
 my $random_percent = random_float() * 100;
