@@ -8,7 +8,7 @@ use Config;
 use v5.10; # For state
 
 # https://pause.perl.org/pause/query?ACTION=pause_operating_model#3_5_factors_considering_in_the_indexing_phase
-our $VERSION = '0.23';
+our $VERSION = '0.24';
 our $debug   = 0;
 
 # Check if the UV (unsigned value) Perl type is 64bit
