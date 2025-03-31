@@ -12,7 +12,10 @@ my %opts = (
 
 	PREREQ_PM          => { 'ExtUtils::MakeMaker' => '7.12', },
 	CONFIGURE_REQUIRES => { 'ExtUtils::MakeMaker' => '7.12', },
-	TEST_REQUIRES      => { 'Test::More' => '0', },
+	TEST_REQUIRES      => {
+		'Test::More' => '0',
+		'XSLoader'   => '0.14',
+	},
 
 	META_MERGE => {
 		dynamic_config => 1,
