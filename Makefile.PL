@@ -8,7 +8,7 @@ my %opts = (
 	XSMULTI          => 1,
 	AUTHOR           => 'Scott Baker <bakerscot@cpan.org>',
 	LICENSE          => 'mit',
-	MIN_PERL_VERSION => '5.012',
+	MIN_PERL_VERSION => '5.014',
 
 	PREREQ_PM          => { 'ExtUtils::MakeMaker' => '7.12', },
 	CONFIGURE_REQUIRES => { 'ExtUtils::MakeMaker' => '7.12', },
