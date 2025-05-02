@@ -17,15 +17,15 @@ my $has_64bit = ($Config{uvsize} == 8);
 #############################################################
 
 require XSLoader;
-
 XSLoader::load();
+
+# When this module is loaded (`use`) seed with random bytes from OS
+seed_with_os_random();
 
 use Exporter 'import';
 our @EXPORT = qw(random_int random_bytes random_float random_elem shuffle_array rand srand);
 
 #############################################################
-
-my $has_been_seeded = 0;
 
 # Throw away the first batch to warm up the PRNG, this is helpful
 # if a poor seed (lots of zero bits) was chosen
@@ -46,8 +46,6 @@ sub seed {
 	}
 
 	Random::Simple::_seed($seed1, $seed2); # C API
-
-	$has_been_seeded = 1;
 }
 
 # Fetch random bytes from the OS supplied method
@@ -142,8 +140,6 @@ sub seed_with_os_random {
 	# Seed the PRNG with the values we just created
 	Random::Simple::_seed($seed1, $seed2); # C API
 
-	$has_been_seeded = 1;
-
 	warmup(128);
 }
 
@@ -154,8 +150,6 @@ sub seed_with_os_random {
 # Get a string of random bytes
 sub random_bytes {
 	my $num = shift();
-
-	if (!$has_been_seeded) { seed_with_os_random(); }
 
 	my $octets_needed = $num / 4;
 
@@ -177,8 +171,6 @@ sub random_bytes {
 sub random_int {
 	my ($min, $max) = @_;
 
-	if (!$has_been_seeded) { seed_with_os_random(); }
-
 	if ($max < $min) { die("Max can't be less than min"); }
 
 	my $range = $max - $min + 1; # +1 makes it inclusive
@@ -190,8 +182,6 @@ sub random_int {
 
 # Get a random float between 0 and 1 inclusive
 sub random_float {
-	if (!$has_been_seeded) { seed_with_os_random(); }
-
 	my $num = Random::Simple::_rand64();
 	my $ret = 0;
 
@@ -207,8 +197,6 @@ sub random_float {
 
 # Pick a random element from an array
 sub random_elem {
-	if (!$has_been_seeded) { seed_with_os_random(); }
-
 	my @arr = @_;
 
 	my $elem_count = scalar(@arr) - 1;
@@ -263,8 +251,6 @@ sub srand {
 # This prototype is required so we can emulate CORE::rand(@array)
 sub rand(;$) {
 	my $mult = shift() || 1;
-
-	if (!$has_been_seeded) { seed_with_os_random(); }
 
 	my $max  = 2**32 - 2; # minus 2 so we're NOT inclusive
 	my $rand = Random::Simple::_rand32(); # C API
