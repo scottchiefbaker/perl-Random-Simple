@@ -54,7 +54,7 @@ get a handful of other useful random related methods.
 
 - **shuffle\_array(@array)**
 
-	returns an array that has been randomized using the Fisher-Yates alorgithm
+	returns an array that has been randomized using the Fisher-Yates alorgithm.
 
 - **srand()**
 

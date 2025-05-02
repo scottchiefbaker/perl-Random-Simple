@@ -321,7 +321,7 @@ returns a random element from C<@array>.
 
 =item B<shuffle_array(@array)>
 
-returns an array that has been randomized using the Fisher-Yates alorgithm
+returns an array that has been randomized using the Fisher-Yates alorgithm.
 
 =item B<srand()>
 
