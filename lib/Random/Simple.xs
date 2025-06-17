@@ -13,7 +13,7 @@
 //#include "xoroshiro128starstar.h"
 //#include "splitmix64.h"
 //
-// Other PRGNs just need three functions _seed(S1,S2), _rand32(),
+// Other PRNGs just need three functions _seed(S1,S2), _rand32(),
 // and _rand64()
 
 ///////////////////////////////////////////////////////////////////////
