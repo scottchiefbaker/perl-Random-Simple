@@ -27,10 +27,27 @@ our @EXPORT = qw(random_int random_bytes random_float random_elem shuffle_array 
 
 #############################################################
 
+
+sub new {
+	my $class = shift();
+	my $self  = {};
+	my $seeds = [0, 0];
+
+	bless $self, $class;
+
+	seed_with_os_random();
+
+	return $self;
+}
+
 # Throw away the first batch to warm up the PRNG, this is helpful
 # if a poor seed (lots of zero bits) was chosen
 sub warmup {
-	my $iter = $_[0];
+	my ($self, $iter) = @_;
+	# If it was called direct (not OO)
+	if (ref($self) eq "") {
+		($iter) = @_;
+	}
 
 	for (my $i = 0; $i < $iter; $i++) {
 		Random::Simple::_rand64(); # C API
@@ -39,7 +56,11 @@ sub warmup {
 
 # Manually seed the PRNG (no warmup)
 sub seed {
-	my ($seed1, $seed2) = @_;
+	my ($self, $seed1, $seed2) = @_;
+	# If it was called direct (not OO)
+	if (ref($self) eq "") {
+		($seed1, $seed2) = @_;
+	}
 
 	if ($debug) {
 		print "SEEDING MANUALLY ($seed1, $seed2)\n";
@@ -149,7 +170,11 @@ sub seed_with_os_random {
 
 # Get a string of random bytes
 sub random_bytes {
-	my $num = shift();
+	my ($self, $num) = @_;
+	# If it was called direct (not OO)
+	if (ref($self) eq "") {
+		($num) = @_;
+	}
 
 	my $octets_needed = $num / 4;
 
@@ -169,7 +194,10 @@ sub random_bytes {
 # Get a random non-biased integer in a given range (inclusive)
 # Note: Range must be no larger than 2^32 - 2
 sub random_int {
-	my ($min, $max) = @_;
+	my ($self, $min, $max) = @_;
+	if (@_ == 2) {
+		($min, $max) = @_;
+	}
 
 	if ($max < $min) { die("Max can't be less than min"); }
 
@@ -191,13 +219,16 @@ sub random_float {
 		$ret = Random::Simple::_uint32_to_double($num);
 	}
 
-
 	return $ret;
 }
 
 # Pick a random element from an array
 sub random_elem {
-	my @arr = @_;
+	my ($self, @arr) = @_;
+	# If it was called direct (not OO)
+	if (ref($self) eq "") {
+		@arr = @_;
+	}
 
 	my $elem_count = scalar(@arr) - 1;
 	my $idx        = random_int(0, $elem_count);
@@ -208,7 +239,12 @@ sub random_elem {
 
 # Use the Fisher-Yates algo to shuffle an array in a non-biased way
 sub shuffle_array {
-    my @array = @_;
+	my ($self, @array) = @_;
+	# If it was called direct (not OO)
+	if (ref($self) eq "") {
+		@array = @_;
+	}
+
     my $i = @array;
     while ($i--) {
         my $j = random_int(0, $i);
