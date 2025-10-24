@@ -265,11 +265,18 @@ sub perl_rand64 {
 
 # Our srand() overrides CORE::srand()
 sub srand {
-	my $seed = int($_[0] || 0);
+	my ($self, $seed) = @_;
+	# If it was called direct (not OO)
+	if (ref($self) eq "") {
+		$seed = ($_[0] || 0);
+	}
 
 	if ($seed == 0) {
 		$seed = int(rand() * 4294967295); # Random 32bit int
 	}
+
+	# See has to be an integer
+	$seed = int($seed);
 
 	# Convert the one 32bit seed into 2x 64bit seeds
 	my $seed1 = _hash_mur3($seed);  # C API
@@ -286,7 +293,13 @@ sub srand {
 #
 # This prototype is required so we can emulate CORE::rand(@array)
 sub rand(;$) {
-	my $mult = shift() || 1;
+	my ($self, $mult) = @_;
+	# If it was called direct (not OO)
+	if (ref($self) eq "") {
+		($mult) = @_;
+	}
+
+	$mult ||= 1;
 
 	my $rand64   = Random::Simple::_rand64(); # C API
     my $mantissa = $rand64 >> 11;  # Take top 53 bits
