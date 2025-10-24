@@ -344,7 +344,7 @@ Random::Simple - Generate good random numbers in a user consumable way.
     my @mixed          = shuffle_array(@arr);
 
 	# Or use the OOP methods
-	my $prng           = new Random::Simple;
+	my $prng           = new Random::Simple();
 
     my $coin_flip      = $prng->random_int(1, 2);
     my $random_percent = $prng->random_float() * 100;
