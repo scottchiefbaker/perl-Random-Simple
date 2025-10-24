@@ -208,13 +208,14 @@ sub random_int {
 
 # Get a random float between 0 and 1 inclusive
 sub random_float {
-	my $num = Random::Simple::_rand64();
 	my $ret = 0;
 
 	if ($has_64bit) {
-		$ret = Random::Simple::_uint64_to_double($num, 1);
+		my $num = Random::Simple::_rand64();
+		$ret    = Random::Simple::_uint64_to_double($num, 1);
 	} else {
-		$ret = Random::Simple::_uint32_to_float($num, 1);
+		my $num = Random::Simple::_rand32();
+		$ret    = Random::Simple::_uint32_to_float($num, 1);
 	}
 
 	return $ret;
