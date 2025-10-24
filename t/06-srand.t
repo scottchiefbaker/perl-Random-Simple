@@ -20,6 +20,19 @@ cmp_ok($rseed        , '==', int($rseed), "srand() float returns the int");
 # If we pass in a seed, we get it back
 is($seed, $srand_ret, "srand(\$num) returns the seed");
 
+################################################################################
+################################################################################
+
+my $prng = new Random::Simple();
+$rseed = $prng->srand();
+
+cmp_ok($prng->srand()       , '>' , 0          , "srand() returns the seed");
+cmp_ok($prng->srand(123.456), '==', 123        , "srand() with a float returns the int");
+cmp_ok($rseed               , '==', int($rseed), "srand() float returns the int");
+
+# If we pass in a seed, we get it back
+#is($seed, $srand_ret, "srand(\$num) returns the seed");
+
 done_testing();
 
 ###################################################################
