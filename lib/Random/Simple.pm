@@ -229,7 +229,7 @@ sub random_elem {
 	}
 
 	my $elem_count = scalar(@arr) - 1;
-	my $idx        = random_int(0, $elem_count);
+	my $idx        = Random::Simple::random_int(0, $elem_count);
 	my $ret        = $arr[$idx];
 
 	return $ret;
@@ -245,7 +245,7 @@ sub shuffle_array {
 
     my $i = @array;
     while ($i--) {
-        my $j = random_int(0, $i);
+        my $j = Random::Simple::random_int(0, $i);
         @array[$i, $j] = @array[$j, $i];
     }
 
