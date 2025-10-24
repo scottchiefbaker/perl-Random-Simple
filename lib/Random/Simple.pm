@@ -312,12 +312,22 @@ sub rand(;$) {
 	}
 
 	$mult ||= 1;
+	my $ret;
 
-	my $rand64   = Random::Simple::_rand64(); # C API
-    my $mantissa = $rand64 >> 11;  # Take top 53 bits
+	if ($has_64bit) {
+		my $rand64   = Random::Simple::_rand64(); # C API
+		my $mantissa = $rand64 >> 11;  # Take top 53 bits
 
-    # Divide by 2^53 to get a float in [0, 1)
-    my $ret = ($mantissa / (2**53)) * $mult;
+		# Divide by 2^53 to get a float in [0, 1)
+		$ret = ($mantissa / (2**53)) * $mult;
+	} else {
+		my $rand32   = Random::Simple::_rand32(); # C API
+		my $mantissa = $rand32 >> 9;  # Take top 23 bits
+
+		# Divide by 2^23 to get a float in [0, 1)
+		$ret         = ($rand32/ (2**23)) * $mult;
+
+	}
 
 	return $ret;
 }
