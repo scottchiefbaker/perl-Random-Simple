@@ -288,11 +288,11 @@ sub srand {
 sub rand(;$) {
 	my $mult = shift() || 1;
 
-	my $max  = 2**32 - 2; # minus 2 so we're NOT inclusive
-	my $rand = Random::Simple::_rand32(); # C API
-	my $ret  = $rand / $max;
+	my $rand64   = Random::Simple::_rand64(); # C API
+    my $mantissa = $rand64 >> 11;  # Take top 53 bits
 
-	$ret = $ret * $mult;
+    # Divide by 2^53 to get a float in [0, 1)
+    my $ret = ($mantissa / (2**53)) * $mult;
 
 	return $ret;
 }
