@@ -341,8 +341,16 @@ Random::Simple - Generate good random numbers in a user consumable way.
 
     my @arr            = ('red', 'green', 'blue');
     my $rand_item      = random_elem(@arr);
-
     my @mixed          = shuffle_array(@arr);
+
+	# Or use the OOP methods
+	my $prng           = new Random::Simple;
+
+    my $coin_flip      = $prng->random_int(1, 2);
+    my $random_percent = $prng->random_float() * 100;
+    my $buffer         = $prng->random_bytes(8);
+    my $rand_item      = $prng->random_elem(@arr);
+    my @mixed          = $prng->shuffle_array(@arr);
 
 =head1 DESCRIPTION
 
