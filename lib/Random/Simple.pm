@@ -280,8 +280,10 @@ sub srand {
 	my ($self, $seed) = @_;
 	# If it was called direct (not OO)
 	if (ref($self) eq "") {
-		$seed = ($_[0] || 0);
+		$seed = $_[0];
 	}
+
+	$seed ||= 0;
 
 	if ($seed == 0) {
 		$seed = int(rand() * 4294967295); # Random 32bit int
