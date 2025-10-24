@@ -214,7 +214,7 @@ sub random_float {
 	if ($has_64bit) {
 		$ret = Random::Simple::_uint64_to_double($num, 1);
 	} else {
-		$ret = Random::Simple::_uint32_to_double($num, 1);
+		$ret = Random::Simple::_uint32_to_float($num, 1);
 	}
 
 	return $ret;
