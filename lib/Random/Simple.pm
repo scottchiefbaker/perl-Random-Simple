@@ -252,6 +252,20 @@ sub shuffle_array {
 	return @array;
 }
 
+# Connect to the raw rand64 function
+sub rand64 {
+	my $ret = Random::Simple::_rand64();
+
+	return $ret;
+}
+
+# Connect to the raw rand64 function
+sub rand32 {
+	my $ret = Random::Simple::_rand32();
+
+	return $ret;
+}
+
 sub perl_rand64 {
 	my $high = rand() * 4294967295;
 	my $low  = rand() * 4294967295;
