@@ -35,8 +35,6 @@ sub new {
 
 	bless $self, $class;
 
-	seed_with_os_random();
-
 	return $self;
 }
 
