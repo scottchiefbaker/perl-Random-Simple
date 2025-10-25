@@ -288,10 +288,10 @@ sub srand {
 		$seed = int(rand() * 4294967295); # Random 32bit int
 	}
 
-	# See has to be an integer
+	# Seed has to be an integer
 	$seed = int($seed);
 
-	# Convert the one 32bit seed into 2x 64bit seeds
+	# Convert one 32bit seed into 2x 64bit seeds
 	my $seed1 = _hash_mur3($seed);  # C API
 	my $seed2 = _hash_mur3($seed1); # C API
 
