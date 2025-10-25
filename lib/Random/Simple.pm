@@ -284,9 +284,7 @@ sub srand {
 		$seed = $_[0];
 	}
 
-	$seed ||= 0;
-
-	if ($seed == 0) {
+	if (!$seed) {
 		$seed = int(rand() * 4294967295); # Random 32bit int
 	}
 
