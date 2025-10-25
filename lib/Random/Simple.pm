@@ -342,21 +342,14 @@ Random::Simple - Generate good random numbers in a user consumable way.
 
     use Random::Simple;
 
-    my $coin_flip      = random_int(1, 2);
-    my $die_roll       = random_int(1, 6);
-    my $random_percent = random_float() * 100;
-    my $buffer         = random_bytes(8);
-
-    my @arr            = ('red', 'green', 'blue');
-    my $rand_item      = random_elem(@arr);
-    my @mixed          = shuffle_array(@arr);
-
-	# Or use the OOP methods
-	my $prng           = new Random::Simple();
+    my $prng           = new Random::Simple();
 
     my $coin_flip      = $prng->random_int(1, 2);
+    my $die_roll       = $prng->random_int(1, 6);
     my $random_percent = $prng->random_float() * 100;
     my $buffer         = $prng->random_bytes(8);
+
+    my @arr            = ('red', 'green', 'blue');
     my $rand_item      = $prng->random_elem(@arr);
     my @mixed          = $prng->shuffle_array(@arr);
 
@@ -417,6 +410,9 @@ only be used in specific cases where you need repeatable or testable
 randomness.
 
 =back
+
+B<Note:> Methods are available OOP style and are automatically exported as the
+plain method name for simple use cases.
 
 =head1 CAVEATS
 

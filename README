@@ -7,21 +7,14 @@ Random::Simple - Generate good random numbers in a user consumable way.
 ```perl
 use Random::Simple;
 
-my $coin_flip      = random_int(1, 2);
-my $die_roll       = random_int(1, 6);
-my $random_percent = random_float() * 100;
-my $buffer         = random_bytes(8);
-
-my @arr            = ('red', 'green', 'blue');
-my $rand_item      = random_elem(@arr);
-my @mixed          = shuffle_array(@arr);
-
-# Or use the OOP methods
 my $prng           = new Random::Simple();
 
 my $coin_flip      = $prng->random_int(1, 2);
+my $die_roll       = $prng->random_int(1, 6);
 my $random_percent = $prng->random_float() * 100;
 my $buffer         = $prng->random_bytes(8);
+
+my @arr            = ('red', 'green', 'blue');
 my $rand_item      = $prng->random_elem(@arr);
 my @mixed          = $prng->shuffle_array(@arr);
 ```
@@ -62,7 +55,7 @@ get a handful of other useful random related methods.
 
 - **shuffle\_array(@array)**
 
-	returns an array that has been randomized using the Fisher-Yates alorgithm.
+    returns an array that has been randomized using the Fisher-Yates alorgithm.
 
 - **srand()**
 
@@ -79,6 +72,9 @@ get a handful of other useful random related methods.
     operating system's randomness if not manually seeded. Manual seeding should
     only be used in specific cases where you need repeatable or testable
     randomness.
+
+**Note:** Methods are available OOP style and are automatically exported as the
+plain method name for simple use cases.
 
 # CAVEATS
 
