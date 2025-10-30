@@ -151,7 +151,7 @@ sub seed_with_os_random {
 	# Seed the PRNG with the values we just created
 	Random::Simple::_seed($seed1, $seed2); # C API
 
-	warmup(128);
+	warmup(32);
 }
 
 ######################################################################
