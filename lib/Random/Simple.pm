@@ -346,13 +346,13 @@ returns a random element from C<@array>.
 
 returns an array that has been randomized using the Fisher-Yates alorgithm.
 
-=item B<srand()>
-
-emulates C<CORE::srand()> using a better PRNG.
-
 =item B<rand()>
 
 emulates C<CORE::rand()> using a better PRNG.
+
+=item B<srand()>
+
+emulates C<CORE::srand()> using a better PRNG.
 
 =item B<Random::Simple::seed($seed1, $seed2)>
 

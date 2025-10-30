@@ -57,13 +57,13 @@ get a handful of other useful random related methods.
 
     returns an array that has been randomized using the Fisher-Yates alorgithm.
 
-- **srand()**
-
-    emulates `CORE::srand()` using a better PRNG.
-
 - **rand()**
 
     emulates `CORE::rand()` using a better PRNG.
+
+- **srand()**
+
+    emulates `CORE::srand()` using a better PRNG.
 
 - **Random::Simple::seed($seed1, $seed2)**
 
