@@ -29,17 +29,6 @@ is(length(random_bytes(-1))   , 0   , "Generate -1 random bytes");
 is(length(random_bytes(49))   , 49  , "Generate 49 random bytes");
 is(length(random_bytes(1024)) , 1024, "Generate 1024 random bytes");
 
-################################################################################
-################################################################################
-
-my $prng = new Random::Simple();
-is(length($prng->random_bytes(16))   , 16  , "Generate 16 random bytes");
-is(length($prng->random_bytes(1))    , 1   , "Generate one random bytes");
-is(length($prng->random_bytes(0))    , 0   , "Generate zero random bytes");
-is(length($prng->random_bytes(-1))   , 0   , "Generate -1 random bytes");
-is(length($prng->random_bytes(49))   , 49  , "Generate 49 random bytes");
-is(length($prng->random_bytes(1024)) , 1024, "Generate 1024 random bytes");
-
 ###################################################################
 ###################################################################
 

@@ -40,23 +40,6 @@ ok($num > 0.45 && $num < 0.55, "rand(1)") or diag("$num not between 0.45 and 0.5
 $num = get_avg_rand(10, $iterations);
 ok($num > 4.5 && $num < 5.5, "rand(10)") or diag("$num not between 4.5 and 5.5");;
 
-################################################################################
-################################################################################
-
-my $prng = new Random::Simple();
-
-# rand() test
-$num = get_avg_rand_oo(undef, $iterations);
-ok($num > 0.45 && $num < 0.55, "rand()") or diag("$num not between 0.45 and 0.55");
-
-# rand(1) test which should be the same as rand()
-$num = get_avg_rand_oo(1, $iterations);
-ok($num > 0.45 && $num < 0.55, "rand(1)") or diag("$num not between 0.45 and 0.55");
-
-# rand(10) test
-$num = get_avg_rand_oo(10, $iterations);
-ok($num > 4.5 && $num < 5.5, "rand(10)") or diag("$num not between 4.5 and 5.5");;
-
 done_testing();
 
 ###################################################################
@@ -74,29 +57,6 @@ sub get_avg_rand {
 			$num = rand($one);
 		} else {
 			$num = rand();
-		}
-
-		$total += $num;
-	}
-
-	my $ret = $total / $count;
-	#print "($min, $max) $num / $count = $ret\n";
-
-	return $ret;
-}
-
-sub get_avg_rand_oo {
-	my ($one, $count) = @_;
-
-	$count ||= 50000;
-
-	my $total = 0;
-	for (my $i = 0; $i < $count; $i++) {
-		my $num;
-		if (defined $one) {
-			$num = $prng->rand($one);
-		} else {
-			$num = $prng->rand();
 		}
 
 		$total += $num;

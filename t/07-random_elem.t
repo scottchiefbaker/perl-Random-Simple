@@ -49,22 +49,6 @@ for (my $i = 0; $i < $iterations; $i++) {
 cmp_ok($data->{red}   , '>', 20, "Contains first element");
 cmp_ok($data->{purple}, '>', 20, "Contains last element");
 
-################################################################################
-################################################################################
-
-my $prng = new Random::Simple();
-
-$data = {};
-for (my $i = 0; $i < $iterations; $i++) {
-	my $elem = $prng->random_elem(@arr);
-
-	$data->{$elem}++;
-}
-
-# Make sure random_elem() includes the ends of the array
-cmp_ok($data->{red}   , '>', 20, "Contains first element");
-cmp_ok($data->{purple}, '>', 20, "Contains last element");
-
 done_testing();
 
 ###################################################################

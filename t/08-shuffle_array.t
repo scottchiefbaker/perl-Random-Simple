@@ -44,27 +44,6 @@ foreach my $item (@arr) {
 
 ok($ok, "All items in original array still present");
 
-################################################################################
-################################################################################
-
-my $prng = new Random::Simple();
-
-@mixed = $prng->shuffle_array(@arr);
-
-# Make sure we stay the same size
-cmp_ok(scalar(@arr), '==', scalar(@mixed), "Shuffled array is the same size");
-
-# Confirm all elements from original array are still in the shuffled array
-$ok = 1;
-foreach my $item (@arr) {
-	if (!in_array($item, @mixed)) {
-		diag("Missing: '$item'\n");
-		$ok = 0;
-	}
-}
-
-ok($ok, "All items in original array still present");
-
 done_testing();
 
 ###################################################################

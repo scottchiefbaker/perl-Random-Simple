@@ -41,11 +41,7 @@ sub new {
 # Throw away the first batch to warm up the PRNG, this is helpful
 # if a poor seed (lots of zero bits) was chosen
 sub warmup {
-	my ($self, $iter) = @_;
-	# If it was called direct (not OO)
-	if (ref($self) eq "") {
-		($iter) = @_;
-	}
+	my ($iter) = @_;
 
 	for (my $i = 0; $i < $iter; $i++) {
 		Random::Simple::_rand64(); # C API
@@ -54,11 +50,7 @@ sub warmup {
 
 # Manually seed the PRNG (no warmup)
 sub seed {
-	my ($self, $seed1, $seed2) = @_;
-	# If it was called direct (not OO)
-	if (ref($self) eq "") {
-		($seed1, $seed2) = @_;
-	}
+	my ($seed1, $seed2) = @_;
 
 	if ($debug) {
 		print "SEEDING MANUALLY ($seed1, $seed2)\n";
@@ -168,11 +160,7 @@ sub seed_with_os_random {
 
 # Get a string of random bytes
 sub random_bytes {
-	my ($self, $num) = @_;
-	# If it was called direct (not OO)
-	if (ref($self) eq "") {
-		($num) = @_;
-	}
+	my ($num) = @_;
 
 	my $octets_needed = $num / 4;
 
@@ -192,10 +180,7 @@ sub random_bytes {
 # Get a random non-biased integer in a given range (inclusive)
 # Note: Range must be no larger than 2^32 - 2
 sub random_int {
-	my ($self, $min, $max) = @_;
-	if (@_ == 2) {
-		($min, $max) = @_;
-	}
+	my ($min, $max) = @_;
 
 	if ($max < $min) { die("Max can't be less than min"); }
 
@@ -223,11 +208,7 @@ sub random_float {
 
 # Pick a random element from an array
 sub random_elem {
-	my ($self, @arr) = @_;
-	# If it was called direct (not OO)
-	if (ref($self) eq "") {
-		@arr = @_;
-	}
+	my @arr = @_;
 
 	my $elem_count = scalar(@arr) - 1;
 	my $idx        = Random::Simple::random_int(0, $elem_count);
@@ -238,11 +219,7 @@ sub random_elem {
 
 # Use the Fisher-Yates algo to shuffle an array in a non-biased way
 sub shuffle_array {
-	my ($self, @array) = @_;
-	# If it was called direct (not OO)
-	if (ref($self) eq "") {
-		@array = @_;
-	}
+	my @array = @_;
 
     my $i = @array;
     while ($i--) {
@@ -251,20 +228,6 @@ sub shuffle_array {
     }
 
 	return @array;
-}
-
-# Connect to the raw rand64 function
-sub rand64 {
-	my $ret = Random::Simple::_rand64();
-
-	return $ret;
-}
-
-# Connect to the raw rand64 function
-sub rand32 {
-	my $ret = Random::Simple::_rand32();
-
-	return $ret;
 }
 
 sub perl_rand64 {
@@ -278,11 +241,7 @@ sub perl_rand64 {
 
 # Our srand() overrides CORE::srand()
 sub srand {
-	my ($self, $seed) = @_;
-	# If it was called direct (not OO)
-	if (ref($self) eq "") {
-		$seed = $_[0];
-	}
+	my $seed = $_[0];
 
 	if (!$seed) {
 		$seed = int(rand() * 4294967295); # Random 32bit int
@@ -306,11 +265,7 @@ sub srand {
 #
 # This prototype is required so we can emulate CORE::rand(@array)
 sub rand(;$) {
-	my ($self, $mult) = @_;
-	# If it was called direct (not OO)
-	if (ref($self) eq "") {
-		($mult) = @_;
-	}
+	my ($mult) = @_;
 
 	$mult ||= 1;
 	my $ret;
@@ -342,14 +297,14 @@ Random::Simple - Generate good random numbers in a user consumable way.
 
     my $prng           = new Random::Simple();
 
-    my $coin_flip      = $prng->random_int(1, 2);
-    my $die_roll       = $prng->random_int(1, 6);
-    my $random_percent = $prng->random_float() * 100;
-    my $buffer         = $prng->random_bytes(8);
+    my $coin_flip      = random_int(1, 2);
+    my $die_roll       = random_int(1, 6);
+    my $random_percent = random_float() * 100;
+    my $buffer         = random_bytes(8);
 
     my @arr            = ('red', 'green', 'blue');
-    my $rand_item      = $prng->random_elem(@arr);
-    my @mixed          = $prng->shuffle_array(@arr);
+    my $rand_item      = random_elem(@arr);
+    my @mixed          = shuffle_array(@arr);
 
 =head1 DESCRIPTION
 
@@ -408,9 +363,6 @@ only be used in specific cases where you need repeatable or testable
 randomness.
 
 =back
-
-B<Note:> Methods are available OOP style and are automatically exported as the
-plain method name for simple use cases.
 
 =head1 CAVEATS
 
