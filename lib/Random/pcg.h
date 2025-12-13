@@ -2,13 +2,13 @@
 #include <time.h>
 
 // additional c code goes here
-typedef struct { uint64_t state;  uint64_t inc; } pcg32_random_t;
+typedef struct { uint64_t state;  uint64_t inc; } pcg_random_t;
 
 ///////////////////////////////////////////////////////////////////////////
 // Private methods
 ///////////////////////////////////////////////////////////////////////////
 
-static uint32_t pcg32_random_r(pcg32_random_t* rng) {
+static uint32_t pcg32_random_r(pcg_random_t* rng) {
     uint64_t oldstate = rng->state;
     // Advance internal state
     rng->state = oldstate * 6364136223846793005ULL + (rng->inc|1);
@@ -19,7 +19,7 @@ static uint32_t pcg32_random_r(pcg32_random_t* rng) {
 }
 
 // PCG64 RXS-M-XS variant
-static inline uint64_t pcg64_random_r(pcg32_random_t* rng) {
+static inline uint64_t pcg64_random_r(pcg_random_t* rng) {
 	//printf("PCG64: %llu / %llu\n", rng->state, rng->inc);
 
     uint64_t num = ((rng->state >> ((rng->state >> 59) + 5)) ^ rng->state) * 12605985483714917081ull;
@@ -32,7 +32,7 @@ static inline uint64_t pcg64_random_r(pcg32_random_t* rng) {
 // Public methods
 ///////////////////////////////////////////////////////////////////////////
 
-pcg32_random_t one;
+pcg_random_t one;
 
 static void _seed(uint64_t seed1, uint64_t seed2) {
 	one.state = seed1;
