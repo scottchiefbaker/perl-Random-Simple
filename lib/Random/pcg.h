@@ -18,6 +18,16 @@ static uint32_t pcg32_random_r(pcg32_random_t* rng) {
     return (xorshifted >> rot) | (xorshifted << ((-rot) & 31));
 }
 
+// PCG64 RXS-M-XS variant
+static inline uint64_t pcg64_random_r(pcg32_random_t* rng) {
+	//printf("PCG64: %llu / %llu\n", rng->state, rng->inc);
+
+    uint64_t num = ((rng->state >> ((rng->state >> 59) + 5)) ^ rng->state) * 12605985483714917081ull;
+    rng->state   = rng->state * 6364136223846793005ull + rng->inc;
+
+    return (num >> 43) ^ num;
+}
+
 ///////////////////////////////////////////////////////////////////////////
 // Public methods
 ///////////////////////////////////////////////////////////////////////////
