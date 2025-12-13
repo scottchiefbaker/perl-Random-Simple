@@ -27,17 +27,6 @@ our @EXPORT = qw(random_int random_bytes random_float random_elem shuffle_array 
 
 #############################################################
 
-
-sub new {
-	my $class = shift();
-	my $self  = {};
-	my $seeds = [0, 0];
-
-	bless $self, $class;
-
-	return $self;
-}
-
 # Throw away the first batch to warm up the PRNG, this is helpful
 # if a poor seed (lots of zero bits) was chosen
 sub warmup {
