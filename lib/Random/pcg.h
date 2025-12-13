@@ -42,12 +42,7 @@ static void _seed(uint64_t seed1, uint64_t seed2) {
 }
 
 static uint64_t _rand64() {
-	uint64_t high = pcg32_random_r(&one);
-	uint32_t low  = pcg32_random_r(&one);
-
-	uint64_t ret = (high << 32) | low;
-
-	/*printf("R: %lu %lu %lu\n", ret, high, low);*/
+	uint64_t ret = pcg64_random_r(&one);
 
 	return ret;
 }
