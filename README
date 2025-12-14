@@ -7,8 +7,6 @@ Random::Simple - Generate good random numbers in a user consumable way.
 ```perl
 use Random::Simple;
 
-my $prng           = new Random::Simple();
-
 my $coin_flip      = random_int(1, 2);
 my $die_roll       = random_int(1, 6);
 my $random_percent = random_float() * 100;
