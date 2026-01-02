@@ -24,6 +24,22 @@ static uint32_t _bounded_rand32_lemire(uint32_t range) {
 	return m >> 32;
 }
 
+// Simple rejection sampling (potentially slow for ranges near 2^64)
+static uint64_t _bounded_rand64_rejection(uint64_t range) {
+    uint64_t limit = UINT64_MAX - (UINT64_MAX % range);
+    uint64_t x;
+
+	// Generate a random number, and then check if it's outside the
+	// limit. If it's outside the limit keep generating new numbers
+	// until the number lands INSIDE the limit
+    do {
+        x = _rand64();
+    } while (x >= limit);
+
+	// Clean 1:1 mapping, so we can return an unbiased number
+    return x % range;
+}
+
 // https://prng.di.unimi.it/#remarks
 static double _uint64_to_double(uint64_t num, bool inclusive) {
 	// A standard 64bit double floating-point number in IEEE floating point

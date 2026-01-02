@@ -37,6 +37,8 @@ void _seed(UV seed1, UV seed2)
 
 U32 _bounded_rand32_lemire(UV range)
 
+UV _bounded_rand64_rejection(UV range)
+
 double _uint64_to_double(UV num, U8 inclusive)
 
 float _uint32_to_float(U32 num, U8 inclusive)

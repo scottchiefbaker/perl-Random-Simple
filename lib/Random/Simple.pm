@@ -167,15 +167,24 @@ sub random_bytes {
 }
 
 # Get a random non-biased integer in a given range (inclusive)
-# Note: Range must be no larger than 2^32 - 2
+# Note: "Lemire"    range must be no larger than 2^32 - 2 (best)
+# Note: "Rejection" range must be no larger than 2^64 - 2
 sub random_int {
 	my ($min, $max) = @_;
 
 	if ($max < $min) { die("Max can't be less than min"); }
 
 	my $range = $max - $min + 1; # +1 makes it inclusive
-	my $ret   = _bounded_rand32_lemire($range);
-	$ret      += $min;
+	my $ret;
+
+	# Anything bigger than 2^32 - 2
+	if ($range > 4294967294) {
+		$ret = _bounded_rand64_rejection($range);
+	} else {
+		$ret = _bounded_rand32_lemire($range);
+	}
+
+	$ret += $min;
 
 	return $ret;
 }
@@ -315,7 +324,7 @@ get a handful of other useful random related methods.
 
 =item B<random_int($min, $max)>
 
-returns a non-biased integer between C<$min> and C<$max> (inclusive). Range must be no larger than 2**32 - 2.
+returns a non-biased integer between C<$min> and C<$max> (inclusive). Range must be no larger than 2**64 - 2.
 
 =item B<random_float()>
 
