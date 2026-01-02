@@ -174,7 +174,7 @@ sub random_int {
 	if ($max < $min) { die("Max can't be less than min"); }
 
 	my $range = $max - $min + 1; # +1 makes it inclusive
-	my $ret   = _bounded_rand($range);
+	my $ret   = _bounded_rand32_lemire($range);
 	$ret      += $min;
 
 	return $ret;

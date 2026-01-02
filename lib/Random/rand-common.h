@@ -2,7 +2,7 @@ static uint32_t _rand32();
 static uint64_t _rand64();
 
 // Borrowed from https://www.pcg-random.org/posts/bounded-rands.html
-static uint32_t _bounded_rand(uint32_t range) {
+static uint32_t _bounded_rand32_lemire(uint32_t range) {
 	uint32_t x = _rand32();
 	uint64_t m = (uint64_t)x * (uint64_t)range;
 	uint32_t l = (uint32_t)m;
