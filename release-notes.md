@@ -15,6 +15,9 @@
 ### Run the tests faster
 `prove -I lib -lv t/*.t`
 
+### Build the README from the POD
+`pod2github lib/Random/Simple.pm > README.md`
+
 ### Make the .tar.gz
 `make tardist`
 
