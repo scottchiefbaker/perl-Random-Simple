@@ -8,8 +8,9 @@ use Config;
 use v5.10; # For state
 
 # https://pause.perl.org/pause/query?ACTION=pause_operating_model#3_5_factors_considering_in_the_indexing_phase
-our $VERSION = '0.27';
-our $debug   = 0;
+our $VERSION   = '0.27';
+our $debug     = 0;
+my $URANDOM_FH = undef;
 
 # Check if the UV (unsigned value) Perl type is 64bit
 my $has_64bit = ($Config{uvsize} == 8);
@@ -66,9 +67,11 @@ sub os_random_bytes {
 		$ret = chr(0) x $count;
 		$rand->Call($ret, $count) or croak("Could not read from csprng: $^E");
 	} elsif (-r "/dev/urandom") {
-		open my $urandom, '<:raw', '/dev/urandom' or croak("Couldn't open /dev/urandom: $!");
+		if (!$URANDOM_FH) {
+			open($URANDOM_FH, '<:raw', '/dev/urandom') or croak("Couldn't open /dev/urandom: $!");
+		}
 
-		sysread($urandom, $ret, $count) or croak("Couldn't read from csprng: $!");
+		sysread($URANDOM_FH, $ret, $count) or croak("Couldn't read from csprng: $!");
 	} else {
 		croak("Unknown operating system $^O");
 	};
