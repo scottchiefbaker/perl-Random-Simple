@@ -42,8 +42,15 @@ sub warmup {
 sub seed {
 	my ($seed1, $seed2) = @_;
 
+	$seed1 = int($seed1);
+	$seed2 = int($seed2);
+
 	if ($debug) {
 		print "SEEDING MANUALLY ($seed1, $seed2)\n";
+	}
+
+	if ($seed1 == 0 && $seed2 == 0) {
+		croak("Both seeds cannot be zero");
 	}
 
 	Random::Simple::_seed($seed1, $seed2); # C API
@@ -55,6 +62,10 @@ sub seed {
 sub os_random_bytes {
 	my $count  = shift();
 	my $ret    = "";
+
+	if ($count <= 0) {
+		croak("$count is not a valid amount of bytes");
+	}
 
 	if ($^O eq 'MSWin32') {
 		require Win32::API;
@@ -154,6 +165,10 @@ sub seed_with_os_random {
 sub random_bytes {
 	my ($num) = @_;
 
+	if ($num < 0) {
+		croak("$num is not a valid amount of bytes");
+	}
+
 	my $octets_needed = $num / 4;
 
 	my $ret = "";
@@ -211,6 +226,8 @@ sub random_float {
 sub random_elem {
 	my @arr = @_;
 
+	if (!@arr) { return (); }
+
 	my $elem_count = scalar(@arr) - 1;
 	my $idx        = Random::Simple::random_int(0, $elem_count);
 	my $ret        = $arr[$idx];
@@ -221,6 +238,8 @@ sub random_elem {
 # Use the Fisher-Yates algo to shuffle an array in a non-biased way
 sub shuffle_array {
 	my @array = @_;
+
+	if (!@array) { return (); }
 
     my $i = @array;
     while ($i--) {
