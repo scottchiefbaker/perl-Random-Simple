@@ -32,7 +32,14 @@ static inline uint64_t pcg64_random_r(pcg_random_t* rng) {
 // Public methods
 ///////////////////////////////////////////////////////////////////////////
 
-pcg_random_t one;
+// Thread-local storage so each ithread gets its own generator state
+#if defined(_MSC_VER)
+#define PCG_TLS __declspec(thread)
+#else
+#define PCG_TLS __thread
+#endif
+
+PCG_TLS pcg_random_t one;
 
 static void _seed(uint64_t seed1, uint64_t seed2) {
 	one.state = seed1;

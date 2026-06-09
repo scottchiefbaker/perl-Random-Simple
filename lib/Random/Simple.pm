@@ -157,6 +157,12 @@ sub seed_with_os_random {
 	warmup(32);
 }
 
+# Called automatically when a new ithread is spawned.
+# Reseeds the thread-local generator with fresh OS entropy.
+sub CLONE {
+	seed_with_os_random();
+}
+
 ######################################################################
 # Below are the public user callable methods
 ######################################################################
