@@ -190,7 +190,7 @@ sub random_bytes {
 sub random_int {
 	my ($min, $max) = @_;
 
-	if ($max < $min) { die("Max can't be less than min"); }
+	if ($max < $min) { croak("Max can't be less than min"); }
 
 	my $range = $max - $min + 1; # +1 makes it inclusive
 	my $ret;
