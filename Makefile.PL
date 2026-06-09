@@ -11,7 +11,7 @@ my %opts = (
 	MIN_PERL_VERSION   => '5.014',
 	PREREQ_PM          => { },
 	CONFIGURE_REQUIRES => {
-		'ExtUtils::MakeMaker' => '7.12',
+		'ExtUtils::MakeMaker' => '0',
 	},
 	TEST_REQUIRES => {
 		'Test::More' => '0',
