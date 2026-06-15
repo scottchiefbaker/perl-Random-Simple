@@ -8,7 +8,7 @@ use Config;
 use v5.10; # For state
 
 # https://pause.perl.org/pause/query?ACTION=pause_operating_model#3_5_factors_considering_in_the_indexing_phase
-our $VERSION   = '0.28';
+our $VERSION   = '0.29';
 our $debug     = 0;
 my $URANDOM_FH = undef;
 
