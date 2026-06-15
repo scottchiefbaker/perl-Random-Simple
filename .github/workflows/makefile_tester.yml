@@ -34,7 +34,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cpan-
       - name: Install ExtUtils::MakeMaker
-        run: cpanm --notest ExtUtils::MakeMaker@7.12
+        run: cpanm --notest ExtUtils::MakeMaker
       - name: Install Dependencies
         run: cpanm --notest --installdeps .
       - name: perl Makefile.PL
@@ -61,7 +61,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-cpan-
       - name: Install ExtUtils::MakeMaker
-        run: cpanm --notest ExtUtils::MakeMaker@7.12
+        run: cpanm --notest ExtUtils::MakeMaker
       - name: Install Dependencies
         run: cpanm --notest --installdeps .
       - name: perl Makefile.PL
