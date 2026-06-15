@@ -21,13 +21,13 @@ jobs:
       image: perldocker/perl-tester:${{ matrix.perl-version }}     # https://hub.docker.com/r/perldocker/perl-tester
     name: Perl ${{ matrix.perl-version }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           submodules: recursive
       - name: perl -V
         run: perl -V
       - name: Cache CPAN dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cpanm
           key: ${{ runner.os }}-cpan-${{ hashFiles('**/Makefile.PL', '**/cpanfile') }}
@@ -48,13 +48,13 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           submodules: recursive
       - name: perl -V
         run: perl -V
       - name: Cache CPAN dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cpanm
           key: ${{ runner.os }}-cpan-${{ hashFiles('**/Makefile.PL', '**/cpanfile') }}
