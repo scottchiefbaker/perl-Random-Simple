@@ -1,6 +1,6 @@
 Changes
 lib/Random/Simple.pm
-lib/Random/Simple.xs
+Simple.xs
 lib/Random/pcg.h
 lib/Random/xorshiro.h
 lib/Random/xoroshiro128starstar.h

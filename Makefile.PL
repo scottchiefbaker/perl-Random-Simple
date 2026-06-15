@@ -1,18 +1,15 @@
 use v5.8.5;
-use ExtUtils::MakeMaker 7.12; # for XSMULTI option
+use ExtUtils::MakeMaker;
 
 my %opts = (
 	NAME               => 'Random::Simple',
 	VERSION_FROM       => 'lib/Random/Simple.pm',
 	ABSTRACT_FROM      => 'lib/Random/Simple.pm',
-	XSMULTI            => 1,
+	INC                => '-Ilib/Random',
 	AUTHOR             => 'Scott Baker <bakerscot@cpan.org>',
 	LICENSE            => 'mit',
 	MIN_PERL_VERSION   => '5.014',
 	PREREQ_PM          => { },
-	CONFIGURE_REQUIRES => {
-		'ExtUtils::MakeMaker' => '7.12',
-	},
 	TEST_REQUIRES => {
 		'Test::More' => '0',
 		'XSLoader'   => '0.14',
