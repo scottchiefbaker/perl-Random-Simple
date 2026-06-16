@@ -2,7 +2,7 @@ package Random::Simple;
 
 use strict;
 use warnings;
-use Carp qw(croak);
+use autouse 'Carp' => qw(croak);
 use Config;
 use v5.10; # For state
 
