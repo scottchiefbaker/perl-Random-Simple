@@ -2,7 +2,6 @@ package Random::Simple;
 
 use strict;
 use warnings;
-use Time::HiRes;
 use Carp qw(croak);
 use Config;
 use v5.10; # For state
