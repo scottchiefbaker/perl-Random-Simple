@@ -249,15 +249,6 @@ sub shuffle_array {
 	return @array;
 }
 
-sub perl_rand64 {
-	my $high = rand() * 4294967295;
-	my $low  = rand() * 4294967295;
-
-	my $ret = ($high << 32) | $low;
-
-	return $ret;
-}
-
 # Our srand() overrides CORE::srand()
 sub srand {
 	my $seed = $_[0];
