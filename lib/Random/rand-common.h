@@ -1,6 +1,13 @@
 static uint32_t _rand32();
 static uint64_t _rand64();
 
+// MSVC's C compiler (pre-VS2019) does not support C99 `inline`; use `__inline`
+#ifdef _MSC_VER
+#  define RS_STATIC_INLINE static __inline
+#else
+#  define RS_STATIC_INLINE static inline
+#endif
+
 // Borrowed from https://www.pcg-random.org/posts/bounded-rands.html
 static uint32_t _bounded_rand32_lemire(uint32_t range) {
 	uint32_t x = _rand32();

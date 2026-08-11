@@ -30,7 +30,7 @@ IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE. */
    output to fill s. */
 
 
-static inline uint64_t rotl(const uint64_t x, int k) {
+static RS_STATIC_INLINE uint64_t rotl(const uint64_t x, int k) {
 	return (x << k) | (x >> (64 - k));
 }
 

@@ -19,7 +19,7 @@ static uint32_t pcg32_random_r(pcg_random_t* rng) {
 }
 
 // PCG64 RXS-M-XS variant
-static inline uint64_t pcg64_random_r(pcg_random_t* rng) {
+RS_STATIC_INLINE uint64_t pcg64_random_r(pcg_random_t* rng) {
 	//printf("PCG64: %llu / %llu\n", rng->state, rng->inc);
 
     uint64_t num = ((rng->state >> ((rng->state >> 59) + 5)) ^ rng->state) * 12605985483714917081ull;
