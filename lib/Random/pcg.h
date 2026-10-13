@@ -23,7 +23,7 @@ RS_STATIC_INLINE uint64_t pcg64_random_r(pcg_random_t* rng) {
 	//printf("PCG64: %llu / %llu\n", rng->state, rng->inc);
 
     uint64_t num = ((rng->state >> ((rng->state >> 59) + 5)) ^ rng->state) * 12605985483714917081ull;
-    rng->state   = rng->state * 6364136223846793005ull + rng->inc;
+    rng->state   = rng->state * 6364136223846793005ull + (rng->inc|1);
 
     return (num >> 43) ^ num;
 }
