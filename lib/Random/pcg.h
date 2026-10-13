@@ -35,8 +35,15 @@ RS_STATIC_INLINE uint64_t pcg64_random_r(pcg_random_t* rng) {
 pcg_random_t one;
 
 static void _seed(uint64_t seed1, uint64_t seed2) {
-	one.state = seed1;
-	one.inc   = seed2;
+	// PCG reference seeding (pcg_srandom_r): zero state, odd stream
+	// selector, advance, add the init value, advance again. This mixes
+	// seed1 through the LCG instead of using it as the raw starting state.
+	one.state = 0;
+	one.inc   = seed2 | 1;
+
+	pcg64_random_r(&one); // return value discarded
+	one.state += seed1;
+	pcg64_random_r(&one); // return value discarded
 
 	//printf("One: %lu / %lu\n", one.state, one.inc);
 }
